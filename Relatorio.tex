@@ -195,7 +195,8 @@ In summary, $s(i)$ measures how well object $i$i matches the clustering at hand,
 
 Given this context we have defined two research questions for this study:
 \begin{itemize}
-	\item Q1: Is it possible to generate good clustering algorithms using grammatical evolution through a genetic algorithm ? 
+	\item Q1: Is it possible to generate good clustering algorithms
+	compared with k-means using a grammatical evolution approach ? 
 	\item Q2: Are the generated clustering algorithms able to generalize well when facing an unknown database instance ?
 \end{itemize}
 
@@ -569,13 +570,17 @@ Table \ref{results:generalizationHeart} shows the same behavior, when applying t
 
 
 
-\section{Conclusions}
+\section{Discussion}
 
 After the experiments conducted it was possible to answer both research questions described in section \ref{sec:research-questions}.
 \begin{itemize}
 	\item Q1 - Based on the experiments conducted is was possible to check that the generated algorithms are able to reach good and acceptable values for our fitness function (which is based on the silhouette index). The fitness values obtained by the generated algorithms in two of four experiments were higher than the ones obtained by the k-means algorithm. The difference between the fitness values obtained by k-means and the approach proposed here is very small. Our conclusion was that in this context the generated algorithms proved to be competitive with k-means algorithm. It is possible to highlight one convenience of the proposed approach: there is no need to configure a k value which usually is a non-trivial task as mentioned by many authors \cite{pham2005selection, yan2005methods, tibshirani2001estimating}.
 	\item Q2 - From the experiments executed to evaluate the ability of generalization of the generated algorithms it was possible to check that they do not generalize well when facing an unknown dataset (that was not used to find the algorithm). In all cases the generated algorithms obtained low values of fitness in other datasets. Thus the conclusion is that in this context the generated algorithms are not able to generalize well using other datasets. It is due to the over-specialization of the algorithms within the dataset used to find it.
 \end{itemize}
+
+\section{Conclusion}
+
+Grammatical evolution is a form of genetic programming which uses a grammar to map between the genotype and the phenotype. The definition of a good terminal set is crucial for the success of an GE approach. In this work it was defined a grammar and a terminal and function sets in order to evolve a population of clustering algorithms through a GA. To evaluate the generated algorithms: a fitness function based on the silhouette index was designed. A set of experiments were conducted and compared with the k-means algorithm. The initial experiment conducted was very simple, however it was useful to check if the proposed approach had potential. In the first experiment the best individual, found by the grammatical evolution approach, was able to reach exactly the same fitness values compared to k-means in 10 independent executions. After the initial experiment a set of experiments using some of the UCI classification databases were conducted. In 2 of 4 experiments the proposed approach reached higher values when compared with the k-means algorithm. Based on the conducted experiments it was possible to conclude that the proposed approach can generated good clustering algorithms competitive with the k-means algorithm.
 
 
 \section{Threats to validity}
