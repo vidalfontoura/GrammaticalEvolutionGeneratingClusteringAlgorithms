@@ -67,27 +67,23 @@ The increase in modern problems' data generation and collection also increased t
 
 \section{Introduction}
 
-More data has been gathered because of modern methods of data collection. The demand for grouping and filtering important data and collect useful information is increased \cite{ahalya2015data}. Clustering is the unsupervised classification of patterns (observations, data items, or feature vectors) into groups (clusters) \cite{jain1988algorithms}. Clustering approaches applications has increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data \cite{ahalya2015data}.
+More data has been gathered because of modern methods of data collection. The demand for grouping and filtering important data and collect useful information has increased \cite{ahalya2015data}. Clustering is the unsupervised classification of patterns (observations, data items, or feature vectors) into groups (clusters) \cite{jain1988algorithms}. Clustering approaches applications has increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data \cite{ahalya2015data}.
 
-The main problem in the application of clustering methods, is that, an algorithm can have a good performance in a certain type of problem, and have a poor performance in other problems. Although some researchers have suggested that "the objective of cluster analysis is simply to find a convenient and valid organization of the data, not to establish rules for separating future data into categories" \cite{jain1988algorithms}, it is conflicting to the desired idea of using the resulting clustering to predict the labels of unseen data.
+The main problem in the application of clustering methods, is that an algorithm can have a good performance in a certain type of problem, and have a poor performance in other problems. Although some researchers have suggested that "the objective of cluster analysis is simply to find a convenient and valid organization of the data, not to establish rules for separating future data into categories" \cite{jain1988algorithms}, that is conflicting to the desired idea of using the resulting clustering to predict the labels of unseen data.
 
-Many real world optimization problems are complex and very difficult to solve. This is due to the large, and often heavily constrained, search spaces, which make their modeling a very complex task. Heuristic methods are usually used in this cases, when the optimal solution is hard to find in a reasonable amount of time. The main aim of the heuristic is to find a good solution within a realistic amount of time \cite{sabar2013grammatical}. Meta-heuristics
+Many real world optimization problems are complex and very difficult to solve. This is due to the large, and often heavily constrained, search spaces, which make their modeling a very complex task. Heuristic methods are usually used in this cases, when the optimal solution is hard to find in a reasonable amount of time. The main aim of the heuristic is to find a good solution within a realistic amount of time \cite{sabar2013grammatical}.
 
-Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has been studied more over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators \cite{poli2014genetic}. The difference from Evolutionary Algorithms, is that GP is used to evolve computer programs, and has its individuals represented by syntax trees.
+Hyper-heuristics is a field of study which aims to be able to automatically create novel algorithms designed to perform better on certain classes of problem than would a general algorithm modified by hand for that purpose \cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics are often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has been studied more over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators \cite{poli2014genetic}.
 
-Deeper in the idea of evolving computer programs, one of the used approaches in Genetic Programming, is the Grammatical Evolution, where a BNF (Backus-Naur Form) grammar is used to generate sentences for a given language, this sentences are mapped into the computer programs that are evaluated by the algorithm. Finally the generated algorithm is executed and its performance is used as feedback for the evolving process.
+Deeper in the idea of evolving computer programs, one of the used approaches in Genetic Programming, is the Grammatical Evolution (GE), where a BNF (Backus-Naur Form) grammar is used to generate sentences for a given language, this sentences are mapped into the computer programs that are evaluated by the algorithm. Finally the generated algorithm is executed and its performance is used as feedback for the evolving process.
 
-Based of the topics presented above, this paper tests if is possible to apply the Grammatical Evolution approach for the Clustering problem in order to generate a good and generic algorithm for data classification. If the algorithm generated can get fair results when applied to different instances of different problems.
+Based of the topics presented, this paper tests if is possible to apply the Grammatical Evolution approach for the Clustering problem in order to generate a good and generic algorithm for data classification. If the algorithm generated can get fair results when applied to different instances of different problems. To test if generated algorithms provided by the Grammatical Evolution have a good performance over different problems, the results were compared to other well-known technique for data classification, the \textit{k-means} algorithm.
 
-To test if generated algorithms provided by the Grammatical Evolution have a good performance over the different problem and test instances, they were compared to other well-known technique for data classification, the \textit{k-means} algorithm.
+This paper is organized as follows. In Section \ref{sec:theoretical_foudation}, has a description about the topics that are important for the full understanding of the paper. Section \ref{sec:research-questions} is presented about the research questions for this work, and what is intended to prove with this research. In Section \ref{sec:methodology} is described how was the design of the method for generation of clustering algorithms using GE. The Section \ref{sec:experiments} presents the experiments that were made, the results obtained, and the comparison with the k-means algorithm. In the Section \ref{sec:threats} is discussed about the proposed research questions. The Section \ref{sec:conclusion} is about the conclusion and future works.
 
-Tests were made in order to identify.
+\section{Theoretical Foundation} \label{sec:theoretical_foudation}
 
-The results were compared to \textit{k-means} algorithm for clustering.
-
-\section{Theoretical Foundation}
-
-This section is about some of the important subjects mentioned in this paper.
+This section is about some of the important subjects mentioned in this paper. Here we talk about Genetic Programming in general. Grammatical Evolution, how the Grammar is used, and how to choose and map the individual into the programs to evaluate them. We also talk about the Clustering Problem and its important concepts for the objective of the paper.
 
 \subsection{Genetic Programming}
 
@@ -124,7 +120,7 @@ The Figure \ref{fig:grammar} shows a basic BNF (Backus-Naur Form) grammar, that 
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=.6]{figures/ge_algo.png}
+	\includegraphics[scale=.4]{figures/ge_algo.png}
 	\caption{Basic scheme for mapping process. \cite{cerri2013grammatical}}
 	\label{fig:ge_algo}
 \end{figure}
@@ -199,7 +195,7 @@ Given this context we have defined two research questions for this study:
 	\item Q2: Are the generated clustering algorithms able to generalize well when facing an unknown database instance ?
 \end{itemize}
 
-\section{Methodology}
+\section{Methodology} \label{sec:methodology}
 
 Our proposed method consists on applying GE to generate clustering algorithms through a GA. We designed a specific grammar, using  Backus-Naur form, a non-terminal and terminal sets in order to achieve this goal. The grammar is shown below:
 
@@ -222,8 +218,6 @@ The first line specifies the main algorithm components: initialization, distance
 	\item MoveBetween: Selects one random cluster and a second cluster which the centroids distance is the lowest between them. Then gets the point from the second cluster which has the lowest distance to the first centroid cluster and moves it.
 	\item MoveNear: Gets one random point and calculates the distance to all clusters centroids. The cluster whose the distance is the lowest between the centroid and the selected point will receive the point.
 \end{itemize}
-
-
 
 The designed grammar can generate clustering algorithms based on an integer vector as described on SECTION BLAH. 
 For the sake of clarity we present an integer vector (genotype) and the steps to decode into a clustering algorithm (phenotype). 
@@ -259,14 +253,11 @@ The index 2 in the grammar is the \textbf{moveAverage} option. Now we have to ev
 		
 		finished = $!clusteringState.changed()$   $|| $		$evaluations>maxEvaluations$}{
 		
-		
-		
 	}
 	\caption{Pseudo code from a decoded algorithm}
 \end{algorithm}
 
 The pseudo-code presented in algorithm \ref{clustering-algoritm-example} is an example of the algorithms generated by the grammar and an integer vector. The stopping criterion in the generated algorithms is fixed using two conditions: first if no changes to the clustering state occurs or if the maximum evaluations budget exceeds, what can be seen on line 14 of the pseudo-code. The maximum evaluations was adjusted to 1000 after some experiments with a set of generated algorithms.
-
 
 Next step is the grammatical evolution process which consists of evolving populations of integer vectors through a genetic algorithm (GA). The GA individuals are converted to clustering algorithms and applied to a cluster dataset. In order to evaluate the individuals a fitness function  was designed and is presented on equation \ref{equation:fitness}.
 
@@ -283,8 +274,8 @@ The GA used to evolve the clustering algorithms is much similar to a traditional
 These are the main differences between the traditional GA and the grammatical evolution GA  implemented in this work. The selection, replacement and initial population mechanisms are much more similar to the ones used in a traditional GA. The selection mechanism used was binary tournament. For replacement it was used an elitist approach which will always replace the parents by the fittest offsprings, otherwise parents will survive to the next generation. The initial population is generated randomly. 
 The GA proposed in this work was implemented using the open source architecture from JMetal framework \cite{jMetal} because it is easy to extend, it has a well organized structure and also an active community.  
 
+\section{Experiments} \label{sec:experiments}
 
-\section{Experiments}
 An initial experiment was conducted to test the methodology proposed here. A small, well separated and simple two-dimensional dataset was designed and is presented in figure \ref{fig:simpleDataset}.
 
 \begin{figure*}[ht]
@@ -294,9 +285,7 @@ An initial experiment was conducted to test the methodology proposed here. A sma
 	\label{fig:simpleDataset}
 \end{figure*}
 
-
 The initial experiment used the dataset presented on figure \ref{fig:simpleDataset} as input of the individuals (clustering algorithms). The configuration used for the GA to evolve the clustering algorithms is presented in table \ref{ga-configuration}. These values were set based on the work made by \cite{lourencco2012evolving}. Initially, the amount of generations was set to 600. But observing the evolution it was possible to realize that the GA was converging to the best solution approximately between the generations 80 and 130. Therefore it was decided to reduce the generations in order to save time.
-
 
 \begin{table}[]
 	\centering
@@ -313,11 +302,9 @@ The initial experiment used the dataset presented on figure \ref{fig:simpleDatas
 	\end{tabular}
 \end{table}
 
-
 The GA proposed was executed 10 times and for comparison the k-means algorithm was also executed 10 times. Both results of GA (best individuals) and k-means (independent executions) were submitted to the same fitness function presented on \ref{equation:fitness}. Table \ref{tab:resultsInitial}
 shows the average/standard deviation/min and max values of fitnesses obtained by the best individuals found by the GA in each run. Also the same statistics are presented for the k-means executions using the dataset presented on figure \ref{fig:simpleDataset}.
 It is easy to see that GA in all executions was able to find an individual which is capable to obtain exactly the same fitness value that the k-means algorithm obtains. 
-
 
 \begin{table}[]
 	\centering
@@ -390,18 +377,17 @@ Since the initial experiment used a very simple and well separated database, a s
 	\end{enumerate}
 \end{itemize}
 
-
 \begin{table}[]
 	\centering
 	\caption{UCI datasets used in the experiments}
 	\label{uci-experiments}
 	\begin{tabular}{|l|l|l|l|l}
 		\cline{1-4}
-		\textbf{Dataset Name} & \textbf{Instances} & \textbf{Attributes} & \textbf{Type}     &  \\ \cline{1-4}
-		Pima Indians Diabetes & 768                & 8                   & Integer, Real     &  \\ \cline{1-4}
-		Statlog (Heart)       & 270                & 13                  & Categorical, Real &  \\ \cline{1-4}
-		Iris                  & 150                & 4                   & Real              &  \\ \cline{1-4}
-		Glass Identification  & 214                & 10                  & Real              &  \\ \cline{1-4}
+		\textbf{Dataset Name}                                           & \multicolumn{1}{l|}{\textbf{Intances}} & \multicolumn{1}{l|}{\textbf{Attributes}} & \textbf{Type}     \\ \hline
+		\begin{tabular}[c]{@{}l@{}}Pima Indians\\ Diabetes\end{tabular} & 768                                    & 8                                        & Integer, Real     \\ \hline
+		Stalog (Hearth)                                                 & 270                                    & 13                                       & Categorical, Real \\ \hline
+		Iris                                                            & 150                                    & 4                                        & Real              \\ \hline
+		\begin{tabular}[c]{@{}l@{}}Glass\\ Identification\end{tabular}  & 214                                    & 10                                       & Real              \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -409,7 +395,6 @@ Since the initial experiment used a very simple and well separated database, a s
 As before, in the initial experiment, the GA was executed 10 independent runs with each dataset using the same configuration presented in table \ref{tab:resultsInitial}. The evaluation of the individuals was made using the fitness function presented on equation \ref{equation:fitness}.
 The results were summarized by means of average, standard deviation, minimum and maximum values of the fitness value,  from the best individual of each run of the GA. The amount of clusters (k) found are also presented.
 In order to make comparisons, the k-means algorithm was executed 10 times with different k values. The k value for k-means was varied within the range 2 to 7 and only the best k configuration (the one whose obtained the highest fitness values) will be presented. Table \ref{results-ga-and-kmeans} shows the results described above. 
-
 
 \begin{table*}[]
 	\centering
@@ -453,8 +438,6 @@ In order to make comparisons, the k-means algorithm was executed 10 times with d
 	\end{tabular}
 \end{table*}
 
-
-
 \begin{table*}[]
 	\centering
 	\caption{Statistic of execution time of the algorithms}
@@ -481,7 +464,6 @@ In order to make comparisons, the k-means algorithm was executed 10 times with d
 	\end{tabular}
 \end{table*}
 
-
 Looking to table \ref{results-ga-and-kmeans} it is possible to see that for the Pima Indian Diabetes, our approach reached BLAH average of the fitness values obtained by the bests individuals of 10 executions. While the k-means algorithm obtained a lesser value BLAH on 10 executions. 
 In the case of the Statlog (Heart) database the GA obtained a better average value of 0.410 while k-means algorithm reached 0.383 with statistic difference according with the Kruskal and Wallis test.
 In the Glass database the GA obtained a lesser value than k-means, 0.603 and 0.624 respectively also with statistic difference according to Kruskal and Wallis test. 
@@ -498,7 +480,7 @@ Another set of experiments were conducted to evaluate the research question (Q2)
 	\label{results:generalizationIris}
 	\begin{tabular}{|c|l|l|l|l|l|}
 		\hline
-		\textbf{Dataset}       & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Individual\\ Algorithm\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Statistics}} & \multicolumn{1}{c|}{\textbf{Fitness}} & \multicolumn{1}{c|}{\textbf{k}} & \multicolumn{1}{c|}{\textbf{Time}} \\ \hline
+		\textbf{Dataset}       & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Individual\\ Algorithm\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Statistics}} & \multicolumn{1}{c|}{\textbf{Fitness}} & \multicolumn{1}{c|}{\textbf{k}} & \multicolumn{1}{c|}{\textbf{Time (s)}} \\ \hline
 		\multirow{12}{*}{Iris} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found\\ on Glass\end{tabular}}               & Average                                  & 0.5980934                              & 2                               & \multirow{4}{*}{2 (seconds)}       \\ \cline{3-5}
 		&                                                                                              & Std Dev                                  & 0,1051669                          & 0                               &                                    \\ \cline{3-5}
 		&                                                                                              & Min                                      & 0,3942573                           & 2                               &                                    \\ \cline{3-5}
@@ -519,7 +501,6 @@ Analyzing table \ref{results:generalizationIris} we can see that the best indivi
 Looking to table \ref{results:generalizationGlass}, as before, the best algorithms found using iris, heart and diabetes datasets also did not perform well when applied to glass dataset. It was obtained an average of 0.554 (best from iris) and 0.520 (best from heart) while the best found using the glass dataset obtained 0.602 and the k-means 0.624.
 
 Table \ref{results:generalizationHeart} shows the same behavior, when applying the best algorithms found by iris, glass an diabetes datasets on heart dataset. The results found by those were 0.277 (best from iris) and 0.306 (best from glass), very low in relation to 0.410 and 0.383 from the best found using the heart dataset and the k-means algorithm respectively.
-
 
 \begin{table}[]
 	\centering
@@ -543,8 +524,6 @@ Table \ref{results:generalizationHeart} shows the same behavior, when applying t
 	\end{tabular}
 \end{table}
 
-
-
 \begin{table}[]
 	\centering
 	\caption{Results obtained using the best algorithms found on iris, glass and diabetes applied in the heart dataset}
@@ -552,11 +531,11 @@ Table \ref{results:generalizationHeart} shows the same behavior, when applying t
 	\begin{tabular}{|c|l|l|l|l|l|}
 		\hline
 		\textbf{Dataset}        & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Individual\\ Algorithm\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Statistics}} & \multicolumn{1}{c|}{\textbf{Fitness}} & \multicolumn{1}{c|}{\textbf{k}} & \multicolumn{1}{c|}{\textbf{Time}} \\ \hline
-		\multirow{12}{*}{Heart} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found\\ on Iris\end{tabular}}                & Average                                  & 0,2777372                             & 2                               & \multirow{4}{*}{17 (seconds)}      \\ \cline{3-5}
+		\multirow{12}{*}{Heart} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found\\ on Iris\end{tabular}}                & Average                                  & 0,2777372                             & 2                               & \multirow{4}{*}{17 s}      \\ \cline{3-5}
 		&                                                                                              & Std Dev                                  & 0,1036269                             & 0                               &                                    \\ \cline{3-5}
 		&                                                                                              & Min                                      & 0,0835615                             & 2                               &                                    \\ \cline{3-5}
 		&                                                                                              & Max                                      & 0,3860393                             & 2                               &                                    \\ \cline{2-6} 
-		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Glass\end{tabular}}              & Average                                  & 0,3062312                             & 2                               & \multirow{4}{*}{18 (seconds)}      \\ \cline{3-5}
+		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Glass\end{tabular}}              & Average                                  & 0,3062312                             & 2                               & \multirow{4}{*}{18 s}      \\ \cline{3-5}
 		&                                                                                              & Std Dev                                  & 0,1148123                             & 0                               &                                    \\ \cline{3-5}
 		&                                                                                              & Min                                      & 0,1154442                             & 2                               &                                    \\ \cline{3-5}
 		&                                                                                              & Max                                      & 0,5377623                       & 2                               &                                    \\ \cline{2-6} 
@@ -567,9 +546,7 @@ Table \ref{results:generalizationHeart} shows the same behavior, when applying t
 	\end{tabular}
 \end{table}
 
-
-
-\section{Conclusions}
+\section{Conclusions} \label{sec:conclusion}
 
 After the experiments conducted it was possible to answer both research questions described in section \ref{sec:research-questions}.
 \begin{itemize}
@@ -577,8 +554,7 @@ After the experiments conducted it was possible to answer both research question
 	\item Q2 - From the experiments executed to evaluate the ability of generalization of the generated algorithms it was possible to check that they do not generalize well when facing an unknown dataset (that was not used to find the algorithm). In all cases the generated algorithms obtained low values of fitness in other datasets. Thus the conclusion is that in this context the generated algorithms are not able to generalize well using other datasets. It is due to the over-specialization of the algorithms within the dataset used to find it.
 \end{itemize}
 
-
-\section{Threats to validity}
+\section{Threats to validity} \label{sec:threats}
 
 Some threats to validity are discussed in this section:
 \begin{itemize}
