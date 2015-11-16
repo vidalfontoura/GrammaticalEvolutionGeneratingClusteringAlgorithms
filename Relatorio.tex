@@ -104,6 +104,7 @@ In Genetic programming, every variant of algorithm uses the same set of algorith
 The nodes can be divided in two main groups: terminal nodes and non-terminal nodes. Terminal nodes are nodes that take no inputs, and are usually values ou variables used as inputs. Non-terminal nodes are nodes that take inputs and use them to produce the output, the inputs are usually terminal nodes or the output of other non-terminal node.
 
 \subsection{Grammatical Evolution}
+\label{subsection:grammaticalEvolution}
 
 Grammatical evolution is a grammar based form of genetic programming. GE accomplishes the mapping process by combining a context free grammar (CFG) with a rule selection mechanism implemented using a genetic algorithm \cite{byrne2015optimising}.
 
@@ -222,7 +223,7 @@ The first line specifies the main algorithm components: initialization, distance
 	\item MoveNear: Gets one random point and calculates the distance to all clusters centroids. The cluster whose the distance is the lowest between the centroid and the selected point will receive the point.
 \end{itemize}
 
-The designed grammar can generate clustering algorithms based on an integer vector as described on SECTION BLAH. 
+The designed grammar can generate clustering algorithms based on an integer vector as described on subsection \ref{subsection:grammaticalEvolution}. 
 For the sake of clarity we present an integer vector (genotype) and the steps to decode into a clustering algorithm (phenotype). 
 Lets assume the following integer vector:
 
@@ -405,41 +406,42 @@ In order to make comparisons, the k-means algorithm was executed 10 times with d
 	\label{results-ga-and-kmeans}
 	\begin{tabular}{|c|c|c|c|c|c|}
 		\hline
-		\textbf{Dataset}                       & \textbf{Algorithm}       & \textbf{Statistics} & \textbf{Fitness} & \textbf{k}               & Kruskal-Wallis Test   \\ \hline
-		\multirow{8}{*}{Pima Indians Diabetes} & \multirow{4}{*}{GA}      & Average             &                  &                          & \multirow{8}{*}{}     \\ \cline{3-5}
-		&                          & Std Dev             &                  &                          &                       \\ \cline{3-5}
-		&                          & Min                 &                  &                          &                       \\ \cline{3-5}
-		&                          & Max                 &                  &                          &                       \\ \cline{2-5}
-		& \multirow{4}{*}{K-Means} & Average             &                  &                          &                       \\ \cline{3-5}
-		&                          & Std Dev             &                  &                          &                       \\ \cline{3-5}
-		&                          & Min                 &                  &                          &                       \\ \cline{3-5}
-		&                          & Max                 &                  &                          &                       \\ \hline
-		\multirow{8}{*}{Statlog (Heart)}       & \multirow{4}{*}{GA}      & Average             & 0.410924         & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
-		&                          & Std Dev             & 0.019960         & 0                        &                       \\ \cline{3-5}
-		&                          & Min                 & 0.381797         & 2                        &                       \\ \cline{3-5}
-		&                          & Max                 & 0.44972          & 2                        &                       \\ \cline{2-5}
-		& \multirow{4}{*}{K-Means} & Average             & 0.383325         & \multirow{4}{*}{Fixed 2} &                       \\ \cline{3-4}
-		&                          & Std Dev             & 0.001523         &                          &                       \\ \cline{3-4}
-		&                          & Min                 & 0.382144         &                          &                       \\ \cline{3-4}
-		&                          & Max                 & 0.385095         &                          &                       \\ \hline
-		\multirow{8}{*}{Glass Identification}  & \multirow{4}{*}{GA}      & Average             & 0.602340         & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
-		&                          & Std Dev             & 0.005321         & 0                        &                       \\ \cline{3-5}
-		&                          & Min                 & 0.593869         & 2                        &                       \\ \cline{3-5}
-		&                          & Max                 & 0.610906         & 2                        &                       \\ \cline{2-5}
-		& \multirow{4}{*}{K-Means} & Average             & 0.624821         & \multirow{4}{*}{Fixed 2} &                       \\ \cline{3-4}
-		&                          & Std Dev             & 0.000007         &                          &                       \\ \cline{3-4}
-		&                          & Min                 & 0.624818         &                          &                       \\ \cline{3-4}
-		&                          & Max                 & 0,624836         &                          &                       \\ \hline
-		\multirow{8}{*}{Iris}                  & \multirow{4}{*}{GA}      & Average             & 0.6442809        & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
-		&                          & Std Dev             & 0.0135472        & 0                        &                       \\ \cline{3-5}
-		&                          & Min                 & 0.6244826        & 2                        &                       \\ \cline{3-5}
-		&                          & Max                 & 0.6679046        & 2                        &                       \\ \cline{2-5}
-		& \multirow{4}{*}{K-Means} & Average             & 0.6813042        & \multirow{4}{*}{Fixed 2} &                       \\ \cline{3-4}
-		&                          & Std Dev             & 0,0000000        &                          &                       \\ \cline{3-4}
-		&                          & Min                 & 0,6813042        &                          &                       \\ \cline{3-4}
-		&                          & Max                 & 0,6813043        &                          &                       \\ \hline
+		\textbf{Dataset}           & \textbf{Algorithm} & \textbf{Statistics} & \textbf{Fitness} & \textbf{k}    & \textbf{Kruskal-Wallis Test}   \\ \hline
+		\multirow{8}{*}{Pima Indians Diabetes} & \multirow{4}{*}{GA}           & Average                        & \textbf{0.605378}                    & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
+		&                               & Std Dev                        & 0.009389                    & 0                        &                       \\ \cline{3-5}
+		&                               & Min                            & 0.586249                    & 2                        &                       \\ \cline{3-5}
+		&                               & Max                            & 0.6168851                   & 0                        &                       \\ \cline{2-5}
+		& \multirow{4}{*}{K-Means}      & Average                        & 0.5701015                   & \multirow{4}{*}{Fixed 2} &                       \\ \cline{3-4}
+		&                               & Std Dev                        & 0.0000000                   &                          &                       \\ \cline{3-4}
+		&                               & Min                            & 0.5701015                   &                          &                       \\ \cline{3-4}
+		&                               & Max                            & 0.5701015                   &                          &                       \\ \hline
+		\multirow{8}{*}{Statlog (Heart)}       & \multirow{4}{*}{GA}           & Average                        & \textbf{0.410924}                    & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
+		&                               & Std Dev                        & 0.019960                    & 0                        &                       \\ \cline{3-5}
+		&                               & Min                            & 0.381797                    & 2                        &                       \\ \cline{3-5}
+		&                               & Max                            & 0.44972                     & 2                        &                       \\ \cline{2-5}
+		& \multirow{4}{*}{K-Means}      & Average                        & 0.383325                    & \multirow{4}{*}{Fixed 2} &                       \\ \cline{3-4}
+		&                               & Std Dev                        & 0.001523                    &                          &                       \\ \cline{3-4}
+		&                               & Min                            & 0.382144                    &                          &                       \\ \cline{3-4}
+		&                               & Max                            & 0.385095                    &                          &                       \\ \hline
+		\multirow{8}{*}{Glass Identification}  & \multirow{4}{*}{GA}           & Average                        & 0.602340                    & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
+		&                               & Std Dev                        & 0.005321                    & 0                        &                       \\ \cline{3-5}
+		&                               & Min                            & 0.593869                    & 2                        &                       \\ \cline{3-5}
+		&                               & Max                            & 0.610906                    & 2                        &                       \\ \cline{2-5}
+		& \multirow{4}{*}{K-Means}      & Average                        & \textbf{0.624821}                    & \multirow{4}{*}{Fixed 2} &                       \\ \cline{3-4}
+		&                               & Std Dev                        & 0.000007                    &                          &                       \\ \cline{3-4}
+		&                               & Min                            & 0.624818                    &                          &                       \\ \cline{3-4}
+		&                               & Max                            & 0,624836                    &                          &                       \\ \hline
+		\multirow{8}{*}{Iris}                  & \multirow{4}{*}{GA}           & Average                        & 0.6442809                   & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
+		&                               & Std Dev                        & 0.0135472                   & 0                        &                       \\ \cline{3-5}
+		&                               & Min                            & 0.6244826                   & 2                        &                       \\ \cline{3-5}
+		&                               & Max                            & 0.6679046                   & 2                        &                       \\ \cline{2-5}
+		& \multirow{4}{*}{K-Means}      & Average                        & \textbf{0.6813042}                   & \multirow{4}{*}{Fixed 2} &                       \\ \cline{3-4}
+		&                               & Std Dev                        & 0,0000000                   &                          &                       \\ \cline{3-4}
+		&                               & Min                            & 0,6813042                   &                          &                       \\ \cline{3-4}
+		&                               & Max                            & 0,6813043                   &                          &                       \\ \cline{3-4}
 	\end{tabular}
 \end{table*}
+
 
 \begin{table*}[]
 	\centering
@@ -448,10 +450,11 @@ In order to make comparisons, the k-means algorithm was executed 10 times with d
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
 		\textbf{Dataset}                       & \multicolumn{1}{l|}{\textbf{Statistics}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}GA Execution\\ Time (h)\end{tabular}}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}GA Best Individual \\ Execution Time (ms)\end{tabular}}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}K-Means\\ Execution Time (ms)\end{tabular}}} \\ \hline
-		\multirow{4}{*}{Pima Indians Diabetes} & Average                                  & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{}                                                                                           & \multicolumn{1}{l|}{}                                                                               \\ \cline{2-5} 
-		& Std Dev                                  & \multicolumn{1}{l|}{\textbf{}}                                                                & \multicolumn{1}{l|}{\textbf{}}                                                                                  & \multicolumn{1}{l|}{\textbf{}}                                                                      \\ \cline{2-5} 
-		& Min                                      & \multicolumn{1}{l|}{\textbf{}}                                                                & \multicolumn{1}{l|}{\textbf{}}                                                                                  & \multicolumn{1}{l|}{\textbf{}}                                                                      \\ \cline{2-5} 
-		& Max                                      & \multicolumn{1}{l|}{\textbf{}}                                                                & \multicolumn{1}{l|}{\textbf{}}                                                                                  & \multicolumn{1}{l|}{\textbf{}}                                                                      \\ \hline
+		\multirow{4}{*}{Pima Indians Diabetes}       & Average                                  & 261.7                                                  & 10581.7                                                                                                         & 
+		102.6                                                                                               \\ \cline{2-5} 
+		& Std Dev                                  & 56.5                                                                                       & 922.9                                                                                                           & 39.3                                                                                               \\ \cline{2-5} 
+		& Min                                      & 199.0                                                                                         & 8809.9                                                                                                           & 71.0                                                                                                 \\ \cline{2-5} 
+		& Max                                      & 349.0                                                                                        & 11933.0                                                                                                          & 71.0                                                                                                \\ \hline
 		\multirow{4}{*}{Statlog (Heart)}       & Average                                  & 38.6                                                                                          & 1468.8                                                                                                          & 20.3                                                                                                \\ \cline{2-5} 
 		& Std Dev                                  & 11.1                                                                                          & 243.5                                                                                                           & 11.6                                                                                                \\ \cline{2-5} 
 		& Min                                      & 23.0                                                                                          & 885.0                                                                                                           & 7.0                                                                                                 \\ \cline{2-5} 
@@ -467,7 +470,8 @@ In order to make comparisons, the k-means algorithm was executed 10 times with d
 	\end{tabular}
 \end{table*}
 
-Looking to table \ref{results-ga-and-kmeans} it is possible to see that for the Pima Indian Diabetes, our approach reached BLAH average of the fitness values obtained by the bests individuals of 10 executions. While the k-means algorithm obtained a lesser value BLAH on 10 executions. 
+
+Looking to table \ref{results-ga-and-kmeans} it is possible to see that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the bests individuals of 10 executions. While the k-means algorithm obtained a lesser value 0.570 on 10 executions. 
 In the case of the Statlog (Heart) database the GA obtained a better average value of 0.410 while k-means algorithm reached 0.383 with statistic difference according with the Kruskal and Wallis test.
 In the Glass database the GA obtained a lesser value than k-means, 0.603 and 0.624 respectively also with statistic difference according to Kruskal and Wallis test. 
 Finally for the Glass database the best individuals of GA obtained 0.644 and the k-means reached 0.681, again with statistic difference according to Kruskal and Wallis test.
@@ -479,23 +483,23 @@ Another set of experiments were conducted to evaluate the research question (Q2)
 
 \begin{table}[]
 	\centering
-	\caption{Results obtained using the best algorithms found on glass, heart and diabetes applied in the iris dataset}
-	\label{results:generalizationIris}
+	\caption{Results obtained using the best algorithms found on iris, heart and diabetes applied in the glass dataset}
+	\label{results:generalizationGlass}
 	\begin{tabular}{|c|l|l|l|l|l|}
 		\hline
-		\textbf{Dataset}       & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Individual\\ Algorithm\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Statistics}} & \multicolumn{1}{c|}{\textbf{Fitness}} & \multicolumn{1}{c|}{\textbf{k}} & \multicolumn{1}{c|}{\textbf{Time (s)}} \\ \hline
-		\multirow{12}{*}{Iris} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found\\ on Glass\end{tabular}}               & Average                                  & 0.5980934                              & 2                               & \multirow{4}{*}{2 (seconds)}       \\ \cline{3-5}
-		&                                                                                              & Std Dev                                  & 0,1051669                          & 0                               &                                    \\ \cline{3-5}
-		&                                                                                              & Min                                      & 0,3942573                           & 2                               &                                    \\ \cline{3-5}
-		&                                                                                              & Max                                      & 0,6869726                             & 2                               &                                    \\ \cline{2-6} 
-		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Heart\end{tabular}}              & Average                                  & 0,4373911                           & 2                               & \multirow{4}{*}{2 (seconds)}       \\ \cline{3-5}
-		&                                                                                              & Std Dev                                  & 0,2083442                           & 0                               &                                    \\ \cline{3-5}
-		&                                                                                              & Min                                      & 0,1328811                           & 2                               &                                    \\ \cline{3-5}
-		&                                                                                              & Max                                      & 0,6641139                             & 2                               &                                    \\ \cline{2-6} 
-		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Diabetes\end{tabular}}           & Average                                  &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Std Dev                                  &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Min                                      &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Max                                      &                                       &                                 &                                    \\ \hline
+		\textbf{Dataset}        & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Individual\\ Algorithm\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Statistics}} & \multicolumn{1}{c|}{\textbf{Fitness}} & \multicolumn{1}{c|}{\textbf{k}} & \multicolumn{1}{c|}{\textbf{Time}} \\ \hline
+		\multirow{12}{*}{Glass} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found\\ on Iris\end{tabular}}                & Average                                  & 0.554890                          & 2                               & \multirow{4}{*}{3 (s)}       \\ \cline{3-5}
+		&                                                                                              & Std Dev                                  & 0.055117                              & 0                               &                                    \\ \cline{3-5}
+		&                                                                                              & Min                                      & 0.462729                              & 2                               &                                    \\ \cline{3-5}
+		&                                                                                              & Max                                      & 0.621245                              & 2                               &                                    \\ \cline{2-6} 
+		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Heart\end{tabular}}              & Average                                  & 0.520432                              & 2                               & \multirow{4}{*}{4 (s)}       \\ \cline{3-5}
+		&                                                                                              & Std Dev                                  & 0.070336                              & 0                               &                                    \\ \cline{3-5}
+		&                                                                                              & Min                                      & 0.354634                              & 2                               &                                    \\ \cline{3-5}
+		&                                                                                              & Max                                      & 0.607885                              & 2                               &                                    \\ \cline{2-6} 
+		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Diabetes\end{tabular}}              & Average                                  & 0.303668                             & 2                               & \multirow{4}{*}{14 (s)}       \\ \cline{3-5}
+		&                                                                                              & Std Dev                                  & 0.067871                             & 0                               &                                    \\ \cline{3-5}
+		&                                                                                              & Min                                      & 0.201338                              & 2                               &                                    \\ \cline{3-5}
+		&                                                                                              & Max                                      & 0.390844                              & 2                               &                                    \\ \cline{1-6} 
 	\end{tabular}
 \end{table}
 
@@ -507,23 +511,23 @@ Table \ref{results:generalizationHeart} shows the same behavior, when applying t
 
 \begin{table}[]
 	\centering
-	\caption{Results obtained using the best algorithms found on iris, heart and diabetes applied in the glass dataset}
-	\label{results:generalizationGlass}
+	\caption{Results obtained using the best algorithms found on glass, heart and diabetes applied in the iris dataset}
+	\label{results:generalizationIris}
 	\begin{tabular}{|c|l|l|l|l|l|}
 		\hline
-		\textbf{Dataset}        & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Individual\\ Algorithm\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Statistics}} & \multicolumn{1}{c|}{\textbf{Fitness}} & \multicolumn{1}{c|}{\textbf{k}} & \multicolumn{1}{c|}{\textbf{Time}} \\ \hline
-		\multirow{12}{*}{Glass} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found\\ on Iris\end{tabular}}                & Average                                  & 0.554890                          & 2                               & \multirow{4}{*}{3 (seconds)}       \\ \cline{3-5}
-		&                                                                                              & Std Dev                                  & 0.055117                              & 0                               &                                    \\ \cline{3-5}
-		&                                                                                              & Min                                      & 0.462729                              & 2                               &                                    \\ \cline{3-5}
-		&                                                                                              & Max                                      & 0.621245                              & 2                               &                                    \\ \cline{2-6} 
-		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Heart\end{tabular}}              & Average                                  & 0.520432                              & 2                               & \multirow{4}{*}{4 (seconds)}       \\ \cline{3-5}
-		&                                                                                              & Std Dev                                  & 0.070336                              & 0                               &                                    \\ \cline{3-5}
-		&                                                                                              & Min                                      & 0.354634                              & 2                               &                                    \\ \cline{3-5}
-		&                                                                                              & Max                                      & 0.607885                              & 2                               &                                    \\ \cline{2-6} 
-		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Diabetes\end{tabular}}           & Average                                  &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Std Dev                                  &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Min                                      &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Max                                      &                                       &                                 &                                    \\ \hline
+		\textbf{Dataset}       & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Individual\\ Algorithm\end{tabular}}} & \multicolumn{1}{c|}{\textbf{Statistics}} & \multicolumn{1}{c|}{\textbf{Fitness}} & \multicolumn{1}{c|}{\textbf{k}} & \multicolumn{1}{c|}{\textbf{Time}} \\ \hline
+		\multirow{12}{*}{Iris} & \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found\\ on Glass\end{tabular}}               & Average                                  & 0.5980934                              & 2                               & \multirow{4}{*}{2 (s)}       \\ \cline{3-5}
+		&                                                                                              & Std Dev                                  & 0,1051669                          & 0                               &                                    \\ \cline{3-5}
+		&                                                                                              & Min                                      & 0,3942573                           & 2                               &                                    \\ \cline{3-5}
+		&                                                                                              & Max                                      & 0,6869726                             & 2                               &                                    \\ \cline{2-6} 
+		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Heart\end{tabular}}              & Average                                  & 0,4373911                           & 2                               & \multirow{4}{*}{3 (s)}       \\ \cline{3-5}
+		&                                                                                              & Std Dev                                  & 0,2083442                           & 0                               &                                    \\ \cline{3-5}
+		&                                                                                              & Min                                      & 0,1328811                           & 2                               &                                    \\ \cline{3-5}
+		&                                                                                              & Max                                      & 0,6641139                             & 2                               &                                    \\ \cline{2-6} 
+		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Diabetes\end{tabular}}              & Average                                  & 0.4560887                           & 2                               & \multirow{4}{*}{5 (s)}       \\ \cline{3-5}
+		&                                                                                              & Std Dev                                  & 0.2411015                           & 0                               &                                    \\ \cline{3-5}
+		&                                                                                              & Min                                      & 0.0047326                        & 2                               &                                    \\ \cline{3-5}
+		&                                                                                              & Max                                      & 0.6665700                            & 2                               &                                    \\ \cline{1-6}  
 	\end{tabular}
 \end{table}
 
@@ -542,10 +546,10 @@ Table \ref{results:generalizationHeart} shows the same behavior, when applying t
 		&                                                                                              & Std Dev                                  & 0,1148123                             & 0                               &                                    \\ \cline{3-5}
 		&                                                                                              & Min                                      & 0,1154442                             & 2                               &                                    \\ \cline{3-5}
 		&                                                                                              & Max                                      & 0,5377623                       & 2                               &                                    \\ \cline{2-6} 
-		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Diabetes\end{tabular}}           & Average                                  &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Std Dev                                  &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Min                                      &                                       &                                 &                                    \\ \cline{3-6} 
-		&                                                                                              & Max                                      &                                       &                                 &                                    \\ \hline
+		& \multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Best Found \\ on Diabetes\end{tabular}}              & Average                                  & 0.530813                             & 2                               & \multirow{4}{*}{10 (s)}       \\ \cline{3-5}
+		&                                                                                              & Std Dev                                  & 0.086902                             & 0                               &                                    \\ \cline{3-5}
+		&                                                                                              & Min                                      & 0.346906                              & 2                               &                                    \\ \cline{3-5}
+		&                                                                                              & Max                                      & 0.611992                              & 2                               &                                    \\ \cline{1-6} 
 	\end{tabular}
 \end{table}
 
