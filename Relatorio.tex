@@ -18,6 +18,8 @@
 
 %Algoritmo
 \usepackage[english, ruled, lined, linesnumbered]{algorithm2e}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
 
 
 %Gramática
@@ -93,9 +95,9 @@ Genetic Programming (GP) is a systematic method for getting computers to automat
 
 Different from the AG, the GP works with computer programs, and because of this, the use of a different structure to the individual's representation of the population is needed. There are many ways to represent individuals, some of the most used are: the syntax tree and linear representation.
 
-The original formulation of genetic programming was done with a tree representation. Here, each node on the tree is a function which takes its children as inputs and sends its output to its parent. Each subtree is a complete sub-program. However, there is no capacity for parts of the tree to be reused in a calculation, which make some things more difficult \cite{harris2015comparison}. (TODO: Pedir para o ricardo arrumar isso, which things? why a subtree can't be used in a calculations)
+The original formulation of genetic programming was done with a tree representation. Here, each node on the tree is a function which takes its children as inputs and sends its output to its parent. Each subtree is a complete sub-program. However, there is no capacity for parts of the tree to be reused in a calculation (like in loops), which make some things more difficult \cite{harris2015comparison}. 
 
-Grammatical evolution, a genetic programming variant, uses a genotype that represents a set of nodes, which are translated to a list of grammatical expansions which eventually produce its nodes (TODO: bit confusing this phrase). This potentially allows for a lot more control by the user over the search space (TODO: bit confusing this phrase), and also facilitates the use of multiple data types in the algorithm. The genotype is represented linearly but can be decoded into a tree for execution and evaluation. In terms of what can be represented, (TODO: what? very confusing) unless restricted in its grammar this GP variant has the same search space as with tree GP \cite{harris2015comparison}.
+Grammatical evolution, a genetic programming variant, uses a genotype that represents a set of nodes, which are translated to a list of grammatical expansions which eventually produce its nodes. This potentially allows the user to have a lot more control over the search space, and also facilitates the use of multiple data types in the algorithm. The genotype is represented linearly but can be decoded into a tree for execution and evaluation. In terms of what can be represented, unless restricted in its grammar, this GP variant has the same power over the search space as with tree GP \cite{harris2015comparison}.
 
 \subsubsection{Genetic Programming Nodes}
 
@@ -146,7 +148,28 @@ The clustering approaches application has widely increased in the areas of Artif
 
 \subsubsection{K-means}
 
-The most widely used and studied clustering algorithm is \textit{k-means}. Given a set of $n$ data points in a Real $n$-dimensional space, $R^n$, and an integer $k$, the problem is to determine a set of $k$ points in $R^n$, called \textit{centers}, so as to minimize the mean squared distance from each data point to its nearest center \cite{kanungo2002efficient}. (TODO: Ricardo - explicar o funcionamento do algoritmo, tlvz atraves do pseudo-algoritmo)
+The most widely used and studied clustering algorithm is \textit{k-means}. Given a set of $n$ data points in a Real $n$-dimensional space, $R^n$, and an integer $k$, the problem is to determine a set of $k$ points in $R^n$, called \textit{centers}, so as to minimize the mean squared distance from each data point to its nearest center \cite{kanungo2002efficient}.
+
+%(TODO: Ricardo - explicar o funcionamento do algoritmo, tlvz atraves do pseudo-algoritmo)
+
+\begin{algorithm}
+	\caption{K-means}
+	\label{alg:kmeans}
+	\Input{$k$ = number of desired clusters\\
+		$P$ = set of points.}
+	\Begin{
+		make $k$ random points as clusters.\\
+		\While{Has changes on the Clustering}{
+			\For{each $p \in P$}{
+				assign $p$ to the nearest cluster $c$.\\
+				update cluster centers.\\
+			}
+		}
+	}
+	\Output{Clusterized points}
+\end{algorithm}
+
+As the Algorithm \ref{alg:kmeans} shows, the process for the k-means is very simple. The parameters that is needed, is the set of points to be clusterized and $k$ that defines the number of desired clusters. The algorithm starts by randomly making $k$ points $p \in P$ as a new cluster, having $p$ as its center. The main loop will occur until there is no modifications in the clusters. Inside the loop, for each $p$ point, will be assigned to the nearest cluster $c$, based on a distance measure related to the center of $c$. After moving the points, the centers are updated, so the loop stop condition can be evaluated again. At the end, the result is the set of clusters and its points.
 
 \subsubsection{Silhouette Index}
 
