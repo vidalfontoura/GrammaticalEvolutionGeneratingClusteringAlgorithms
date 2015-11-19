@@ -72,18 +72,21 @@
 	
 	More data has been gathered because of modern methods of data collection. The demand for grouping and filtering important data and extract useful information has increased \cite{ahalya2015data}. Clustering is the unsupervised classification of patterns (observations, data items, or feature vectors) into groups (clusters) \cite{jain1988algorithms}. Clustering approaches applications have increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data \cite{ahalya2015data}.
 	
-	The main problem in the application of clustering methods is that the algorithms depends on many parameters that are domain dependent hindering their application. In this context, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study which aims to be able to automatically create novel algorithms designed to perform better on certain classes of problem than would a general algorithm modified by hand for that purpose \cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics are often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has gained more interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators \cite{poli2014genetic}.
+	The main problem in the application of clustering methods is that the algorithms depends on many parameters that are domain dependent hindering their application. In this context, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study which aims to be able to automatically create novel algorithms designed to perform better on certain classes of problem than would a general algorithm modified by hand for that purpose \cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics are often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has gained more interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators \cite{poli2014genetic}. GP can be easily divided in two categories, GP for Generation and GP for Perturbation. In GP for Generation, the algorithm aims to iteratively construct the solution, while in the GP for Perturbation, the algorithms work with a complete solution and perturb it with the application of the operators.
 	
 	Deeper in the idea of evolving computer programs, one of the used approaches in Genetic Programming, is the Grammatical Evolution (GE), where a BNF (Backus-Naur Form) grammar is used to generate sentences for a given language, this sentences are mapped into the computer programs that are evaluated by the algorithm. Finally, the generated algorithm is executed and its performance is used as feedback for the evolutionary process.
 	
+	The GP algorithms offer a promissory approach to be used in the Clustering Problem because of the flexibility in the classification of points. The main idea is to classify each point to the cluster that best represents its characteristics. The way you classify the points can be different for each set. So if you could define a group of rules to classify the points, based on moves to perform on the space, and choose the rules that best classify each set, it would be possible to try to find a algorithm generic enough to classify any set of points.
+	
 	Based on the presented topics, this paper proposes the automatic design of clustering algorithms by applying the Grammatical Evolution approach. In order to guide this work we defined the research question for this study:
+	
 	\begin{itemize}
 		\item Q1: Is it possible to generate good clustering algorithms.
 	\end{itemize}
+	
 	To answer this question, the following approach is adopted: the clustering algorithms are generated for different bases from the UCI repository. The resulting clustering algorithms are  compared to the k-means algorithm. 
 	
 	This paper is organized as follows. In Section \ref{sec:theoretical_foudation}, has a description about the topics that are important for the full understanding of the paper. In Section \ref{sec:methodology} is described how was the design of the method for generation of clustering algorithms using GE. The Section \ref{sec:experiments} presents the experiments that were ran, the results obtained, and the comparison with the k-means algorithm. In the Section \ref{sec:discussion} a discussion about the proposed research questions is presented. Section \ref{sec:threats} presents some threats to validity . Finally, the Section \ref{sec:conclusion} presents the conclusion.
-	
 	
 	\section{Theoretical Foundation} \label{sec:theoretical_foudation}
 	
@@ -412,6 +415,12 @@
 		\item The experiments were conducted using only 4 datasets: It is necessary to execute more experiments with a broader range of datasets in order to evaluate if the same behavior is maintained.
 		\item The results strongly depend on the used grammar and future works include new rules.
 	\end{itemize}
+	
+	\section{Related Work} \label{sec:related_work}
+	
+	The work of \cite{miranda2015gefpso} was used as the base to this research. In the paper they describe the creation of a framework for PSO Optimization using Grammatical Evolution. This paper also describes how to use a grammar to generate the algorithms and evaluate them by using integer vector individuals, and how to define the grammar (the production rules and expressions used). As in this work, they presented a grammar to generate configurations for the PSO algorithm. They performed experiments on the benchmark problems, and demonstrate that the proposed method generates useful designs which achieved competitive solutions when compared to well succeeded algorithms from the literature.
+	
+	The work of \cite{castro2015using} is related to other subject that is we use in this paper. They propose the use of a Hyper-Heuristic approach to Select Leader and Archiving Methods for Many-Objective Problems. The paper presents a review about multi-objective PSO (MOPSO), and describes the use of Leader Selection and Archiving Methods during the process of evolution. Experimental Studies were conducted to validate the proposed algorithm where its performance is compared to the state-of-the-art MOEA/D-DRA algorithm. The result show that the new algorithm is robust, presenting good results in different situations.
 	
 	\section{Conclusion}
 	\label{sec:conclusion}
