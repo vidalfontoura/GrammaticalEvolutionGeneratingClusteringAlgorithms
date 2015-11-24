@@ -91,6 +91,7 @@
 	
 	This section reviews important concepts used in this paper. First, genetic programming is presented. Then, grammatical evolution is addressed, i.e., how the grammar supports the generation of programs, and how to choose and map the individuals into programs. Moreover, the clustering problem is described.
 	
+	
 	\subsection{Genetic Programming}
 	
 	Genetic Programming (GP) is a systematic method for getting computers to automatically solve a problem from a high-level statement of what need to be done \cite{koza2005genetic}. Having a similar behavior to Genetic Algorithms (GAs), GP iteratively evolves a population of computer programs, applying the selection, crossover and mutation operators, in order to improve their fitness, and increase the chances of an individual being part of future generations.
@@ -100,6 +101,7 @@
 	The original formulation of genetic programming was done with a tree representation. Here, each node on the tree is a function which takes its children as inputs and sends its output to its parent. Each sub-tree is a complete sub-program. However, there is no capacity for parts of the tree to be reused in a calculation (like in loops), which make some things more difficult to be done \cite{harris2015comparison}. 
 	
 	Grammatical evolution, a genetic programming variant, uses a genotype that represents a set of nodes, which are translated to a list of grammatical expansions which eventually produce its nodes. This potentially allows the user to have a lot more control over the search space, and also facilitates the use of multiple data types in the algorithm. The genotype is represented linearly but can be decoded into a tree for execution and evaluation. In terms of what can be represented, unless restricted in its grammar, this GP variant has the same power over the search space as tree GP \cite{harris2015comparison}.
+	
 	
 	\subsection{Grammatical Evolution} \label{subsection:grammaticalEvolution}
 	
@@ -132,6 +134,7 @@
 	\end{equation}
 	
 	where $GR_i$ is the index of the grammar rule to be selected in non-terminal $i$, $int$ is the codon integer value and $nr_i$ is the number of rules available for derivation in non-terminal $i$. The operator $mod$ returns the remainder of the division between two numbers.
+	
 	
 	\subsection{Clustering}
 	
