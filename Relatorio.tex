@@ -207,18 +207,19 @@
 	
 	The first line specifies the main algorithm components: initialization, distance and command. 
 	
-	For the initialization node two possibilities of terminal nodes were implemented: random and uniform. The random initialization consists of randomly select points as centroids of the clusters. The uniform initialization consists on finding the minimum and maximum values for each attribute of the dataset. It utilizes this information to uniformly select the coordinates (within this range) for centroids. Moreover, for both initialization methods, an initial value of K (number of clusters) is chosen between five possible values: 4,6,8,10 and 0. If the chosen K value is equals to 0 it will be drawn a random number between 2 and 5. Note that, this k value is an initial value because the grammar allows to create or destroy clusters. 
+	For the initialization node two possibilities of terminal nodes were implemented: random and uniform. The random initialization consists of randomly select objects as centroids of the clusters. The uniform initialization consists on finding the minimum and maximum values for each attribute of the dataset. It utilizes this information to uniformly select the coordinates (within this range) for centroids. Moreover, for both initialization methods, an initial value of K (number of clusters) is chosen between five possible values: 4,6,8,10 and 0. If the chosen K value is equals to 0 it will be drawn a random number between 2 and 5. Note that, this K value is an initial value because the grammar allows to create or destroy clusters. 
 	
-	In the case of the distance component, three possibilities of distance functions were implemented: Euclidean, Manhattan and Chebyshev. The selected distance function will be used in all other functions that requires information of distance between the data. 
+	In the case of the distance component, three possibilities of distance functions were implemented: \textit{Euclidean}, \textit{Manhattan} and \textit{Chebyshev}. The selected distance function will be used in all another functions that requires information of distance between the data. 
 	
-	The command component is the main body of the structure and is going to allow the creation or destruction of clusters as well as movements of data from one cluster to other.  This component can potentially generate infinite programs since it has a recursion. in order to avoid the generation of infinite programs, a maximum depth value was setup to 400. The  terminal node are described at next.
+	The command component is the main body of the structure and it allows the creation or destruction of clusters as well as movements of data from one cluster to other.  This component can potentially generate infinite programs since it has a recursion. In order to avoid the generation of infinite programs, a maximum depth value was setup to 400. The  terminal node are described at next.
 	
 	\begin{itemize}
-		\item JoinClusters: this terminal selects one random cluster computes the nearest cluster and merge both clusters.
-		\item SplitClusters: this terminal searches for the cluster which has the highest average distance between the points and the centroid and splits it. 
-		\item MoveAverage:  this terminal gets one random object and calculates for each cluster the distance to all points. The cluster whose average distance is the lowest will receive the point.
+		\item JoinClusters: this terminal selects one random cluster, then computes the nearest cluster and merge both clusters.
+		\item SplitClusters: this terminal searches for the cluster which has the highest average distance between the objects and its centroid and splits it. 
+		\item MoveAverage:  this terminal gets one random object and calculates for each cluster the distance to all objects. The cluster whose average distance is the lowest will receive the 
+		selected object.
 		\item MoveBetween: the terminal selects one random cluster and computes the nearest cluster. Then gets the object from the second cluster which has the lowest distance to the first centroid cluster and moves it.
-		\item MoveNear:  the terminal gets one random object and calculates the distance to all clusters centroids. The cluster whose distance is the lowest between the centroid and the selected point will receive the object.
+		\item MoveNear:  the terminal gets one random object and calculates the distance to all clusters centroids. The cluster whose distance is the lowest between the centroid and the selected object will receive the object.
 	\end{itemize}
 	
 	The designed grammar can generate clustering algorithms based on an integer vector as described on subsection \ref{subsection:grammaticalEvolution}. As example at next, this process is illustrated by beginning with the integer vector (genotype) and following the steps to decode into a clustering algorithm (phenotype). 
@@ -251,7 +252,7 @@
 		\caption{Pseudo code from a decoded algorithm}
 	\end{algorithm}
 	
-	The pseudo-code presented in algorithm \ref{clustering-algoritm-example} is an example of the algorithms generated by the grammar. The stopping criterion in the generated algorithms is fixed using two conditions: first if no changes to the clustering state occurs or if the maximum number of evaluations exceeds. This can be seen at line 14 of the pseudo-code. The maximum number of evaluations was adjusted to 1000 after some experiments.
+	The pseudo-code presented in algorithm \ref{clustering-algoritm-example} is an example of the algorithms generated by the grammar. The stopping criterion in the generated algorithms is fixed using two conditions: first if no changes occurs in the clustering state or if the maximum number of evaluations exceeds. This can be seen at line 14 of the pseudo-code. The maximum number of evaluations was adjusted to 1000 after some experiments.
 	
 	Next step is the grammatical evolution process which consists of evolving populations of integer vectors through a genetic algorithm (GA). The GA individuals are converted to clustering algorithms and applied to a cluster dataset. In order to evaluate the individuals a fitness function was designed and is presented on equation \ref{equation:fitness}.
 	
@@ -261,7 +262,7 @@
 	\
 	\end{align}
 	
-	The $e$ value represents the number of independent executions of the clustering algorithm and was fixed to 10. The $p$ value is the number of points of the respective dataset being used. The $s_{ij}$ is the silhouette index (explained in sub-section \ref{sec:sillhouetteIndex}) of the $j^{\text{th}}$ point of the $i^{\text{th}}$ execution. Basically the fitness function is given by the average of the silhouette value for every point of the dataset in each execution of the clustering algorithm.
+	The $e$ value represents the number of independent executions of the clustering algorithm and was fixed to 10. The $p$ value is the number of objects of the respective dataset being used. The $s_{ij}$ is the silhouette index (explained in sub-section \ref{sec:sillhouetteIndex}) of the $j^{\text{th}}$ object of the $i^{\text{th}}$ execution. Basically the fitness function is given by the average of the silhouette value for every object of the dataset in each execution of the clustering algorithm.
 	
 	The GA used to evolve the clustering algorithms is similar to a traditional GA, however the individual solutions have not fixed length, whereas the generated algorithms can have different sizes. Since the solutions are not of fixed length it is possible after applying a crossover or mutation operator that one individual has less genes than the required for building a clustering algorithm. The approach for this situation is to continue getting the integer values from the beginning of the individual in order to fill all functions required by a clustering algorithm. Also, it is possible to occur the inverse situation: when an individual is bigger than the necessary to build a clustering algorithm. The strategy adopted here is to simply discard the portion that is not being used. It is worthwhile to mention that individuals in GE do not necessarily use all their genes to be decoded to a program. A prune operator was proposed by \cite{ryan1998grammatical} to reduce the possibilities of crossover operations being applied on genes that are not decoded to a program. The prune operator consists on given a probability, truncate the offspring generated by the crossover and mutation operators. Another operator that was proposed to deal with GE is the duplication operator inspired by the biological background. It consists on duplicating a random number of genes in the end of the original individual, also given a probability of occurrence. The main idea here is to duplicate the genes in order to increase their presence on the overall individual.
 	
@@ -272,7 +273,7 @@
 	A set of experiments were conducted using  four well-known clustering datasets from UCI machine learning database \cite{uci}. Table \ref{uci-experiments} shows the amount of instances, numbers of attributes and the data type of the datasets. 
 	The GA was executed 10 independent runs with each dataset using the same configuration presented in table \ref{ga-configuration}. The evaluation of the individuals was made using the fitness function presented on equation \ref{equation:fitness}.
 	The results were summarized by means of average, standard deviation, minimum and maximum values of the fitness value,  from the best individual of each run of the GA. The amount of clusters (k) found are also presented.
-	In order to make comparisons, the k-means algorithm was executed 10 times with different K values. The K value for k-means was varied within the range 2 to 7 and only the best k configuration (the one whose obtained the highest fitness values) is presented. 
+	In order to make comparisons, the K-means algorithm was executed 10 times with different K values. The K value for K-means was varied within the range 2 to 7 and only the best k configuration (the one whose obtained the highest fitness values) is presented. 
 	
 	\begin{table}[]
 		\centering
@@ -307,7 +308,7 @@
 	
 	\begin{table*}[]
 		\centering
-		\caption{Results of GA best individual and also the fitness obtained by k-means algorithm}
+		\caption{Results of GA best individual and also the fitness obtained by K-means algorithm}
 		\label{results-ga-and-kmeans}
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\hline
@@ -374,21 +375,21 @@
 		\end{tabular}
 	\end{table*}
 	
-	Looking at table \ref{results-ga-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the bests individuals of 10 executions, while the k-means algorithm obtained a lower value equal to 0.570 on 10 executions. 
-	In the case of the Statlog (Heart) database,  the GA obtained a better average value of 0.410 while k-means algorithm reached 0.383. According to the  Kruskal-Wallis statistic test, these results have statistical difference. 
-	In the Glass database, the results of GA have lower values than k-means, 0.603 and 0.624 respectively. Also with statistical difference according to Kruskal- Wallis test. 
-	Finally, for the Glass database the best individuals of GA obtained 0.644 and the k-means reached 0.681, again with statistic difference according to Kruskal-Wallis test.
+	Looking at table \ref{results-ga-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the bests individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions. 
+	In the case of the Statlog (Heart) database,  the GA obtained a better average value of 0.410 while K-means algorithm reached 0.383. According to the  Kruskal-Wallis statistic test, these results have statistical difference. 
+	In the Glass database, the results of GA have lower values than K-means, 0.603 and 0.624 respectively. Also with statistical difference according to Kruskal- Wallis test. 
+	Finally, for the Glass database the best individuals of GA obtained 0.644 and the K-means reached 0.681, again with statistic difference according to Kruskal-Wallis test.
 	
 	Moreover, it is possible to note that for all 10 executions of the GA, the generated algorithms used two clusters. In the case of the k-means algorithm the results that presented the highest fitness values were also using $k=2$. For the sake of space the results with $k = (3,4,5,6,7)$ were suppressed.
 	
-	Table \ref{resultsTimeExecution} presents some computational time information of the algorithms. The statistic summary of 10 GA executions, in hours, is presented in the third column. In the fourth column shows the statistics summary of time taken, in milliseconds, to execute 10 times the best individual found by the GA. The fifth column presents the statistics summary of executing 10 times the k-means algorithm.
+	Table \ref{resultsTimeExecution} presents some computational time information of the algorithms. The statistic summary of 10 GA executions, in hours, is presented in the third column. In the fourth column shows the statistics summary of time taken, in milliseconds, to execute 10 times the best individual found by the GA. The fifth column presents the statistics summary of executing 10 times the K-means algorithm.
 	
 	
 	
 	\section{Discussion}
 	\label{sec:discussion}
 	
-	After the experiments conducted it was possible to answer the research question. Based on the experiments conducted is possible to check that the generated algorithms are able to reach good and acceptable values for the  fitness function (which is based on the silhouette index). The fitness values obtained by the generated algorithms in two of four experiments were higher than the ones obtained by the k-means algorithm. The difference between the fitness values obtained by k-means and the approach proposed here is very small. Our conclusion was that in this context the generated algorithms proved to be competitive to k-means algorithm. It is possible to highlight, one advantage of the proposed approach: there is no need to configure a k value which usually is a non-trivial task as mentioned by many authors \cite{pham2005selection, yan2005methods, tibshirani2001estimating}.
+	After the experiments conducted it was possible to answer the research question. Based on the experiments conducted is possible to verify that the generated algorithms are able to reach good and acceptable values for the  fitness function (which is based on the silhouette index). The fitness values obtained by the generated algorithms in two of four experiments were higher than the ones obtained by the K-means algorithm. The difference between the fitness values obtained by K-means and the approach proposed here is very small. Our conclusion was that in this context the generated algorithms proved to be competitive to K-means algorithm. It is possible to highlight, one advantage of the proposed approach: there is no need to configure K value which usually is a non-trivial task as mentioned by many authors \cite{pham2005selection, yan2005methods, tibshirani2001estimating}.
 	
 	\section{Threats to validity} \label{sec:threats}
 	
@@ -418,7 +419,7 @@
 	\label{sec:conclusion}
 	
 	Grammatical evolution is a form of genetic programming which uses a grammar to map between the genotype and the phenotype. The definition of a good rules set is crucial for the success of an GE approach. In this work it was designed and implemented a grammar in order to evolve a population of clustering algorithms through a GA. To evaluate the generated algorithms: a fitness function based on the silhouette index was implemented.
-	A set of experiments were conducted and compared with the k-means algorithm using UCI databases. In 2 of 4 datasets the proposed approach reached higher values when compared with the k-means algorithm.
+	A set of experiments were conducted and compared with the K-means algorithm using UCI databases. In 2 of 4 datasets the proposed approach reached higher values when compared with the K-means algorithm.
 	Based on the conducted experiments, it is possible to conclude that the proposed approach can generated good clustering algorithms.
 	
 	%Referências
