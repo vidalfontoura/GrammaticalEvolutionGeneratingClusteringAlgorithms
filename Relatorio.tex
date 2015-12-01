@@ -56,8 +56,9 @@
 	\maketitle
 	
 	\begin{abstract}
-		Nowadays, there is an increase of data generated everywhere and is becoming crucial to analyze and extract the hidden information. Clustering methods, one of the tools to better interpret data, are used for distribution of similar data into groups. Each group has objects that are close to each other considering its characteristics, and different from objects from other groups. Clustering algorithms depends on many parameters that are domain dependent hindering their application. In this context, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. In this sense, this work proposes the automatic design of clustering algorithms by using a hyper-heuristic based on Grammatical Evolution (GE). Grammatical Evolution is a type of Genetic Programming that use a Backus-Naur Form Grammar to evolve a population of computer programs to solve a problem. The clustering algorithms are generated for different bases from the UCI repository. The resulting clustering algorithms were compared to the K-means algorithm. The comparison shows promising results. 
+		Nowadays, there is an increase of data generated everywhere and is becoming crucial to analyze and extract the hidden information. Clustering algorithms help in this task by grouping similar data allowing a better interpretation. Each group has objects that are close to each other considering its characteristics, and different from objects from other groups. However, clustering algorithms depends on many parameters that are domain dependent hindering their application. In this context, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. In this sense, this work proposes the automatic design of clustering algorithms by using a hyper-heuristic based on Grammatical Evolution (GE). Grammatical Evolution is a type of Genetic Programming that use a Backus-Naur Form Grammar to evolve a population of computer programs to solve a problem. A grammar for clustering algorithms is proposed and then, algorithms are generated for different bases from the UCI repository. The resulting clustering algorithms were compared to the K-means algorithm. The comparison shows promising results. 
 		
+
 		
 	\end{abstract}
 	
@@ -70,8 +71,9 @@
 	
 	\section{Introduction}
 	
-	More data has been gathered because of modern methods of data collection. The demand for grouping and filtering important data and extract useful information has increased \cite{ahalya2015data}. Clustering is the unsupervised classification of patterns (observations, data items, or feature vectors) into groups (clusters) \cite{jain1988algorithms}. Clustering approaches applications have increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data \cite{ahalya2015data}.
+	Modern methods of data collection have allowed the gathering of a huge quantity of data. Therefore, there is an increasing demand for grouping and filtering important data and extract useful information \cite{ahalya2015data}. Clustering is the unsupervised learning of patterns (observations, data items, or feature vectors) into groups (clusters) \cite{jain1988algorithms}. Clustering approaches applications have increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data \cite{ahalya2015data}.
 	
+
 	The main problem in the application of clustering methods is that the algorithms depends on many parameters that are domain dependent hindering their application. In this context, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study which aims to be able to automatically create novel algorithms designed to perform better on certain classes of problem than would a general algorithm modified by hand for that purpose \cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics are often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has gained more interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators \cite{poli2014genetic}. The GP provides a way to automate one of the most expensive and time-consuming aspects of the software engineering process: the production of the code itself \cite{langdon2013optimising}. The GP algorithms are responsible for select individual parts (functions, routines, pieces of code) to build an algorithm and then evaluate it in order to search for a design that best solve a certain type of problem.
 	
 	Deeper in the idea of evolving computer programs, one of the used approaches in Genetic Programming, is the Grammatical Evolution (GE), where a BNF (Backus-Naur Form) grammar is used to generate sentences for a given language, this sentences are mapped into the computer programs that are evaluated by the algorithm. Finally, the generated algorithm is executed and its performance is used as feedback for the evolutionary process.
@@ -82,10 +84,12 @@
 		\item Q1: Is it possible to generate good clustering algorithms.
 	\end{itemize}
 	
-	To answer this question, the following approach is adopted: the clustering algorithms are generated for different bases from the UCI repository. The resulting clustering algorithms are  compared to the K-means algorithm. 
+	The following approach is adopted to answer this question. First, a grammar is proposed for clustering algorithms, next algorithms are generated for different bases from the UCI repository. The resulting clustering algorithms are compared to the K-means algorithm.
+
 	
-	This paper is organized as follows. In Section \ref{sec:theoretical_foudation}, has a description about the topics that are important for the full understanding of the paper. In Section \ref{sec:methodology} is described how was the design of the method for generation of clustering algorithms using GE. The Section \ref{sec:experiments} presents the experiments that were ran, the results obtained, and the comparison with the K-means algorithm. In the Section \ref{sec:discussion} a discussion about the proposed research questions is presented. Section \ref{sec:threats} presents some threats to validity . Finally, the Section \ref{sec:conclusion} presents the conclusion.
+	This paper is organized as follows. Section \ref{sec:theoretical_foudation} has a description about the topics that are important for the full understanding of the paper. Section \ref{sec:methodology}  describes the grammar proposed for the design of the algorithms and  details of the  generation using GE. Section \ref{sec:experiments} presents the experiments that were ran, the results obtained, and the comparison to K-means algorithm. Finally, the Section \ref{sec:conclusion} presents the conclusion.
 	
+
 	
 	\section{Theoretical Foundation} \label{sec:theoretical_foudation}
 	
@@ -195,6 +199,8 @@
 	
 	The proposed method consists on applying GE to generate clustering algorithms. A specific grammar was designed  using  Backus-Naur form. The grammar is shown below:
 	
+	
+	
 	\begin{grammar}
 		<GE> ::= <initialization> <distance> <command> 
 		\\ <initialization> ::= "random" <k> | "uniform" <k>
@@ -204,6 +210,7 @@
 		\\ <distance> ::= "eucledian" | "manhattan" | "chebyshev"
 		\label{ge-clustering-grammar}
 	\end{grammar}
+	
 	
 	The first line specifies the main algorithm components: initialization, distance and command. 
 	
@@ -271,9 +278,15 @@
 	The GA proposed in this work was implemented using the open source architecture from JMetal framework \cite{jMetal} because it is easy to extend, it has a well organized structure and also an active community.  
 	
 	A set of experiments were conducted using  four well-known clustering datasets from UCI machine learning database \cite{uci}. Table \ref{uci-experiments} shows the amount of instances, numbers of attributes and the data type of the datasets. 
+	
+	
 	The GA was executed 10 independent runs with each dataset using the same configuration presented in table \ref{ga-configuration}. The evaluation of the individuals was made using the fitness function presented on equation \ref{equation:fitness}.
+	
+	
 	The results were summarized by means of average, standard deviation, minimum and maximum values of the fitness value,  from the best individual of each run of the GA. The amount of clusters (k) found are also presented.
-	In order to make comparisons, the K-means algorithm was executed 10 times with different K values. The K value for K-means was varied within the range 2 to 7 and only the best k configuration (the one whose obtained the highest fitness values) is presented. 
+	
+	
+	In order to make comparisons, the K-means algorithm was executed 10 times with different K values. The K value was varied within the range 2 to 7 and only the best k configuration (the one whose obtained the highest fitness values) is presented. 
 	
 	\begin{table}[]
 		\centering
@@ -304,7 +317,7 @@
 		\end{tabular}
 	\end{table}
 	
-	Table \ref{results-ga-and-kmeans} shows the results described above. 
+	
 	
 	\begin{table*}[]
 		\centering
@@ -345,6 +358,7 @@
 			&                               & Std Dev                        & 0,0000000                   &                          &                       \\ \cline{3-4}
 			&                               & Min                            & 0,6813042                   &                          &                       \\ \cline{3-4}
 			&                               & Max                            & 0,6813043                   &                          &                       \\ \cline{3-4}
+			\\ \hline
 		\end{tabular}
 	\end{table*}
 	
@@ -375,7 +389,9 @@
 		\end{tabular}
 	\end{table*}
 	
-	Looking at table \ref{results-ga-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the bests individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions. 
+	Table \ref{results-ga-and-kmeans} presents the results. 
+	
+	 Looking at table \ref{results-ga-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the bests individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions. 
 	In the case of the Statlog (Heart) database,  the GA obtained a better average value of 0.410 while K-means algorithm reached 0.383. According to the  Kruskal-Wallis statistic test, these results have statistical difference. 
 	In the Glass database, the results of GA have lower values than K-means, 0.603 and 0.624 respectively. Also with statistical difference according to Kruskal- Wallis test. 
 	Finally, for the Glass database the best individuals of GA obtained 0.644 and the K-means reached 0.681, again with statistic difference according to Kruskal-Wallis test.
@@ -386,14 +402,12 @@
 	
 	
 	
-	\section{Discussion}
-	\label{sec:discussion}
+	After the experiments conducted it is possible to answer the research question. Based on the obtained results it is possible to verify that the generated algorithms are able to reach good and acceptable values for the fitness function (which is based on the silhouette index). The fitness values obtained by the generated algorithms in two of four databases were higher than the ones obtained by the K-means algorithm, although in the other databases the difference between the fitness values was very small. Therefore, in the context evaluated here, the generated algorithms proved to be competitive to K-means algorithm. Moreover, it is possible to highlight one advantage of the proposed approach that there is no need to configure the number of cluster which usually is a non-trivial task as mentioned by many authors \cite{pham2005selection, yan2005methods, tibshirani2001estimating}.
 	
-	After the experiments conducted it was possible to answer the research question. Based on the experiments conducted is possible to verify that the generated algorithms are able to reach good and acceptable values for the  fitness function (which is based on the silhouette index). The fitness values obtained by the generated algorithms in two of four experiments were higher than the ones obtained by the K-means algorithm. The difference between the fitness values obtained by K-means and the approach proposed here is very small. Our conclusion was that in this context the generated algorithms proved to be competitive to K-means algorithm. It is possible to highlight, one advantage of the proposed approach: there is no need to configure K value which usually is a non-trivial task as mentioned by many authors \cite{pham2005selection, yan2005methods, tibshirani2001estimating}.
+
+
 	
-	\section{Threats to validity} \label{sec:threats}
-	
-	Some threats to validity are discussed in this section:
+	Some threats to validity are:
 	\begin{itemize}
 		\item The parameters configuration was not tuned due to time constraints. The configuration was selected mainly based on literature works and some empirical experiments. It is possible that using a tuned configuration the results get improvements.
 		\item The experiments were conducted using only 4 datasets: It is necessary to execute more experiments with a broader range of datasets in order to evaluate if the same behavior is maintained.
@@ -404,24 +418,33 @@
 	
 	\section{Related Work} \label{sec:related_work}
 	
-	In \cite{lourencco2012evolving} they proposed a Grammatical Evolution framework to the automatic design of Evolutionary Algorithms. The grammar defined has the ability to combine components that regularly appear in existing evolutionary algorithms, aiming to achieve novel and fully functional optimization methods. They used the Royal Road Functions to verify the capacity of the framework to evolve algorithms. The results obtained show that the framework is able to evolve simple evolutionary algorithms that can effectively solve the Royal Road instances. In some cases, unusual design solutions provided by the framework show competitive results with standard approaches.
+	In \cite{lourencco2012evolving}, the authors proposed a Grammatical Evolution framework for the automatic design of Evolutionary Algorithms. The grammar defined has the ability to combine components that regularly appear in existing evolutionary algorithms, aiming to achieve novel and fully functional optimization methods. They used the Royal Road Functions to verify the capacity of the framework to evolve algorithms. The obtained results show that the framework is able to evolve simple evolutionary algorithms that can effectively solve the Royal Road instances. In some cases, unusual design solutions provided by the framework show competitive results with standard approaches.
 	
-	The work of \cite{miranda2015gefpso} was one of the papers used as base for this research. In the paper they describe the creation of a framework for PSO Optimization using Grammatical Evolution. This paper also describes how to use a grammar to generate the algorithms and evaluate them by using integer vector individuals, and how to define the grammar (the production rules and expressions used). As in this work, they presented a grammar to generate configurations for the PSO algorithm. They performed experiments on the benchmark problems, and demonstrate that the proposed method generates useful designs which achieved competitive solutions when compared to well succeeded algorithms from the literature.
+	The work \cite{miranda2015gefpso} was one of the papers used as base for this research. In the paper, the authors describe a framework to generate Particle Optimization Algorithm (PSO) using Grammatical Evolution. The paper details how to define the grammar (the production rules and expressions used), the map process using integer vector individuals, and how to use the grammar to generate the PSO algorithm. They performed experiments on the benchmark problems, and demonstrate that the proposed method generates useful designs which achieved competitive algorithms when compared to well succeeded algorithms from the literature.
 	
-	The paper of \cite{burke2012grammatical} show that GP approaches have been employed to automatically design constructive heuristics for solving problems. These algorithms obtained results superior to human-created heuristics, but they do not generally obtained results from the same quality as local search heuristics. So in they research, they proposed the use of Grammatical Evolution to automatically generate good quality local search algorithms, that maintain their performance on new problem instances.
+	In the paper \cite{burke2012grammatical}, the authors note that GP approaches have been employed to automatically design constructive heuristics for solving problems. These algorithms obtained results superior to human-created heuristics, but in general, they do not obtain results of same quality as local search heuristics. So in their research, they proposed the use of Grammatical Evolution to automatically generate good quality local search algorithms, that maintain their performance on new problem instances.
 		
-	The paper of \cite{bolton2015optimizing} is about the challenging task that is to design efficient algorithms for difficult combinatorial optimization problems. There is a variety of heuristic, meta-heuristic and hyper-heuristic methods, showing in some cases that combining algorithms can produce better results than individual performance. In the paper they propose the use of Genetic Programming to automate the design of algorithms to put into practice against the Clustering problem. They created some functions that represents common operations made in clustering algorithms to represent the nodes required by GP, so the evolutionary could produce algorithms based on these functions and then evaluate its fitness based on how well the new algorithm classify data.
-		
-	All the works mentioned have applications of GP for automatically design algorithms for solving problems. The paper of \cite{lourencco2012evolving} uses GE to evolves evolutionary algorithms for optimizing the Royal Road Functions, the grammar used was created by using the common functions present in standard GA, like population size, selection, mutation, crossover, replacement, its parameters, etc. The work of \cite{miranda2015gefpso} proposes the use of GE for finding good configurations for the PSO algorithm. The grammar was defined with the main parameters of the PSO, like population size, velocity calculation, update-velocity method, global best method, etc. But they made experiments only in the mono-objective version of the algorithm. The paper of \cite{burke2012grammatical} say that GP approaches can obtain better results than human-created heuristics, but equally results when it comes to local search methods to prove that automatic designed algorithms can maintain the good performance over different problem instances. Finally the paper of \cite{bolton2015optimizing} presented the idea of using GP for the Clustering problem, using common operation for moving and classify objects as functions for built the algorithms. There is other approaches for the Clustering problem using GP like the paper of \cite{boric2007genetic}, that uses Information Theoretic Fitness Measure -- a probabilistic interpretation of the space of objects -- for clustering.
+	The paper of \cite{bolton2015optimizing} is about the challenging task of projecting efficient algorithms for difficult combinatorial optimization problems. There is large amount of heuristic, meta-heuristic and hyper-heuristic methods, showing that combining algorithms can produce better results than alone. In the paper, the authors propose the use of Genetic Programming to automate the design of Clustering algorithms. They create some functions that represents common operations made in clustering algorithms to represent the nodes required by GP, so the evolutionary could produce algorithms based on these functions. There are other approaches for the Clustering problem using GP like the paper of \cite{boric2007genetic}, that uses Information Theoretic Fitness Measure -- a probabilistic interpretation of the space of objects -- for clustering.
 	
+
+	
+	All these works motivated and gave support to the study presented here, the design of a clustering algorithm through Grammatical Evolution as far we known as never been proposed, the works in the literature use other functions as:  and, or and mathematical functions. The most similar work is the proposed in \cite{bolton2015optimizing} but the paper did have all the details needed to reply the study, moreover the study did not use the Grammatical Evolution approach.
+
 		
 	\section{Conclusion}
 	\label{sec:conclusion}
 	
-	Grammatical evolution is a form of genetic programming which uses a grammar to map between the genotype and the phenotype. The definition of a good rules set is crucial for the success of an GE approach. In this work it was designed and implemented a grammar in order to evolve a population of clustering algorithms through a GA. To evaluate the generated algorithms: a fitness function based on the silhouette index was implemented.
-	A set of experiments were conducted and compared with the K-means algorithm using UCI databases. In 2 of 4 datasets the proposed approach reached higher values when compared with the K-means algorithm.
-	Based on the conducted experiments, it is possible to conclude that the proposed approach can generated good clustering algorithms.
+	In this study, the automatic design of clustering algorithms is faced by a Grammatical Evolution approach. Grammatical evolution is a form of genetic programming which uses a grammar to map between the genotype and the phenotype. The definition of a good rules set is crucial for the success of an GE approach. 
+
+A grammar was projected for clustering algorithms using common operation like moving or grouping objects. The GE was implemented and the population of clustering algorithms was evolved. A silhouette index was used as fitness function.
+
+
+	A set of experiments were conducted using UCI databases. The results of the generated algorithms were compared to K-means algorithm. In 2 of 4 datasets the proposed approach reached higher values when compared with the K-means algorithm.
+
+	Based on the conducted experiments, it is possible to conclude that the proposed approach can generated good clustering algorithms. Future works include to extend this study to other databases and the addition of other rules to the grammar with other important component for clustering algorithms.
 	
+
+
 	%Referências
 	\bibliographystyle{plain}
 	\bibliography{references}
