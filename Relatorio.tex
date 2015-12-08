@@ -64,22 +64,17 @@ ricardo.hrlima@gmail.com
 
 \section{Introduction}
 
-Modern methods of data collection have allowed gathering a huge quantity of data. Therefore, there is an increasing demand for grouping and filtering important data and extract useful information from the collected data~\cite{ahalya2015data}, and as a consequence, a crescent research interest in the area of clustering algorithms. Clustering is the unsupervised learning of patterns (observations, data items, or feature vectors) into groups (clusters)~\cite{jain1988algorithms}. Clustering approach applications have increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data~\cite{ahalya2015data}.
+Modern methods of data collection have allowed gathering a huge quantity of data. Therefore, there is an increasing demand for grouping and filtering important data and extract useful information from the collected data~\cite{ahalya2015data}, and as a consequence, a crescent research interest in the area of clustering algorithms. Clustering is the unsupervised learning of patterns (observations, data items, or feature vectors) into groups (clusters) \cite{jain1988algorithms}. Clustering approach applications have increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data~\cite{ahalya2015data}.
 
 The main problem in the application of clustering methods is that the algorithms need many parameters that are domain dependent, hindering their application. In this sense, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study that aims automatically creating novel algorithms designed to perform better on certain classes of problems than would a general algorithm modified by hand for that purpose~\cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics is  often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has raised interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators~\cite{poli2014genetic}. The GP provides a way to automate one of the most expensive and time-consuming aspects of the software engineering process: the production of the code itself~\cite{langdon2013optimising}. The GP algorithms are responsible for selection of individual parts (functions, routines, pieces of code) to build an algorithm and then evaluate it in order to search for a design that best solve a certain type of problem.
 
 Deeper in the idea of evolving computer programs, one of the used approaches in Genetic Programming is the Grammatical Evolution (GE), where a BNF (Backus-Naur Form) grammar is used to generate sentences for a given language, theses sentences are mapped into  computer programs that are evaluated by the algorithm. Finally, the generated algorithm is executed and its performance is used as feedback for the evolutionary process.
 
-Existing approaches for evolving clustering algorithm does not use GE. Some works like \cite{ahn2011genetic, xie2006population, boric2007genetic} make use tree-based GP for Clustering. Although \cite{harris2015comparison} say that GE and GP have the same search space, for some problems the use of GE could make easier to work with it. Working with a tree-representation for the individuals is more difficult than deal with an integer vector.
+%R Exemplos de trabalhos usando GP e vantagens na utilização de GE
+Existing approaches for evolving clustering algorithm does not use GE. Some works like \cite{ahn2011genetic, xie2006population, boric2007genetic} make use tree-based GP for Clustering. Although \cite{harris2015comparison} say that GE and GP have the same search space, for some problems the use of GE could make easier to work with. Working with a tree-representation for the individuals is more difficult than deal with an integer vector.
 
-
-Falta uma ligacao com a motivação
-
-%S good não está legal.... podemos até usar mas precisamos dizer como medimos o quao good sao...
-
-In this paper we propose an approach for automatic design of clustering algorithms by applying Grammatical Evolution. The hypothesis that guides our work is that such approach is capable to generate clustering algorithms that can classify data as well as well-know algorithms for that purpose, and . The main advantage is to reduce the effort required to the algorithm design. To this end, we first define a grammar that captures the main clustering algorithm features. Then, algorithms are generated for different bases of the UCI repository~\cite{}. and finally, the obtained clustering algorithms are compared to K-means~\cite{} considering some indicators, such as ...
-
-
+%R good não está legal.... podemos até usar mas precisamos dizer como medimos o quao good sao.
+In this paper we propose an approach for automatic design of clustering algorithms by applying Grammatical Evolution. The hypothesis that guides our work is that such approach is capable to generate clustering algorithms that can classify data as well as well-know algorithms for that purpose. The main advantage is to reduce the effort required to the algorithm design. To this end, we first define a grammar that captures the main clustering algorithm features. Then, algorithms are generated for different bases of the UCI repository \cite{uci}. Finally, the obtained clustering algorithms are compared to K-means \cite{kanungo2002efficient} considering the Sillhouette Index \cite{rousseeuw1987silhouettes} as indicator for the results.
 
 This paper is organized as follows. Section~\ref{sec:theoretical_foudation} reviews some topics that are important for the full understanding of the paper. Section~\ref{sec:methodology} introduces our approach,  describes the grammar proposed for the design of the algorithms and how the algorithms are generated using GE. Section~\ref{sec:experiments} describes how the conducted experiments,  presents the obtained results and shows the comparison to K-means algorithm. Finally, the Section~\ref{sec:conclusion} concludes the paper and shows future research directions.
 
@@ -99,9 +94,9 @@ Different from AGs, GP works with computer programs, and because of this, the us
 
 The original formulation of genetic programming was done with a tree representation. Here, each node on the tree is a function that takes its children as inputs and sends its output to its parent. Each sub-tree is a complete sub-program. However, there is no capacity for parts of the tree to be reused in a calculation (like in loops), which makes some things more difficult to be done~\cite{harris2015comparison}. 
 
-%S Não entendi o parágrafo abaixo. quem é que produz os nos...
-
-Grammatical evolution, a genetic programming variant, uses a genotype that represents a set of nodes, which are translated to a list of grammatical expansions that eventually produce other nodes (%SN???). 
+%R Não entendi o parágrafo abaixo. quem é que produz os nos...
+Grammatical evolution, a genetic programming variant, uses a genotype that represents a numbered list of grammatical expansions which eventually produce nodes that represent the program tree.
+ 
 This potentially allows the user to have more control over the search space, and also facilitates the use of multiple data types in the algorithm. The genotype is represented linearly but can be decoded into a tree for execution and evaluation. In terms of what can be represented, unless restricted in its grammar, this GP variant has the same power over the search space as the tree-based GP~\cite{harris2015comparison}.
 
 
@@ -144,9 +139,8 @@ where $GR_i$ is the index of the grammar rule to be selected in non-terminal $i$
 
 The Clustering problem consists in partitioning a dataset into subgroups such that items belonging to the same group are more similar than those belonging to different groups~\cite{boric2007genetic}~\cite{ahalya2015data}. The application of clustering approaches has widely increased in the areas of Artificial Intelligence, pattern recognition, image processing, medicine, marketing, data mining, compression of images or data, statistics, etc.~\cite{ahalya2015data}.
 
-%S acho que falta uma referencia para esta citaçao sobre o k-means.
-
-The most widely used and studied clustering algorithm is \textit{K-means}~\cite{}. Given a set of $n$ data objects in a Real $n$-dimensional space, $R^n$, and an integer $k$, the problem is to determine a set of $k$ objects in $R^n$, called \textit{centers}, so as to minimize the mean squared distance from each data object to its nearest center~\cite{kanungo2002efficient}.
+%R acho que falta uma referencia para esta citaçao sobre o k-means.
+The most widely used and studied clustering algorithm is \textit{K-means} \cite{kanungo2002efficient}. Given a set of $n$ data objects in a Real $n$-dimensional space, $R^n$, and an integer $k$, the problem is to determine a set of $k$ objects in $R^n$, called \textit{centers}, so as to minimize the mean squared distance from each data object to its nearest center~\cite{kanungo2002efficient}.
 
 
 \subsubsection{Silhouette Index}
@@ -197,26 +191,16 @@ for each object $i$, and zero is the most neutral value. When $i$ is closer to 1
 In summary, $s(i)$ measures how well object $i$ matches the clustering at hand, in other words, how well the item $i$ has been classified.
 
 
-%%%%%%%%%%%%%%%%%%%
-
-%S que tal trocarmos para approach .... afinal prometemos uma approach no titulo.
-
-%\section{Methodology} \label{sec:methodology}
-
+%R que tal trocarmos para approach .... afinal prometemos uma approach no titulo.
 \section{Proposed Approach} \label{sec:methodology}
 
-%S acho que aqui deveriamos descrever as caracterisitcas da abordagem, passos e introduzir esta seção e sua organizacao.
-%Subdividi, vejam o que acham.
-
-The proposed approach applies GE to generate clustering algorithms.......
+%R acho que aqui deveriamos descrever as caracterisitcas da abordagem, passos e introduzir esta seção e sua organizacao.
+The proposed approach applies GE to generate clustering algorithms. Starting from the individuals that are represented by integer vectors, they can be mapped using a BNF grammar to generate the algorithms in a tree-representation by the recursive application of the production rules, so the individuals can be evaluated and give a feedback for the evolutionary process.
 
 
-\subsection{ Grammar Definition}
+\subsection{Grammar Definition}
 
 It includes a specific grammar, designed  using  Backus-Naur form. The grammar is as follows:
-
-
-
 
 \begin{grammar}
 	<GE> ::= <initialization> <distance> <command> 
@@ -235,10 +219,8 @@ For the initialization node two possibilities of terminal nodes were implemented
 
 In the case of the distance component, three possibilities of distance functions were implemented: \textit{Euclidean}, \textit{Manhattan} and \textit{Chebyshev}. The selected distance function will be used by all other functions that require information about the distance between data. 
 
-
-%S o que é um programa infinito? nao existe este conceito, reescrever... 
-
-The command component is the main body of the structure and it allows the creation or destruction of clusters as well as, movements of data from one cluster to other.  This component can potentially generate infinite programs since it has a recursion. In order to avoid the generation of infinite programs, a maximum depth value was setup to 20. The  terminal node is described at next.
+%R o que é um programa infinito? nao existe este conceito, reescrever... 
+The command component is the main body of the structure and it allows the creation or destruction of clusters as well as, movements of data from one cluster to other. This component can potentially generate programs with 10, 100 or infinite functions since it has a recursion. In order to avoid the generation of programs with too many functions, a maximum depth value was setup to 20. The terminal node is described at next.
 
 \begin{itemize}
 	\item JoinClusters: this terminal selects one random cluster, then computes the nearest cluster and merge both clusters.
@@ -279,7 +261,7 @@ The first gene is 199 and it is the entry point. The \textit{initialization} is 
 	\caption{Pseudo code from a decoded algorithm}
 \end{algorithm}
 
-The pseudo-code presented in Algorithm~\ref{clustering-algoritm-example} is an example that can be generated by the grammar. The stopping criterion in the generated algorithms is fixed using two conditions: first if no changes occurs in the clustering state or if the maximum number of evaluations exceeds. This can be seen at line 14 of the pseudo-code. The maximum number of evaluations was adjusted to 1000 after some experiments.
+The pseudo-code presented in Algorithm \ref{clustering-algoritm-example} is an example that can be generated by the grammar. The stopping criterion in the generated algorithms is fixed using two conditions: first if no changes occurs in the clustering state or if the maximum number of evaluations exceeds. This can be seen at line 14 of the pseudo-code. The maximum number of evaluations was adjusted to 1000 after some experiments.
 
 
 \subsection{Grammatical Evolution Process}
@@ -294,23 +276,22 @@ fitness    &= \frac{\sum_{i=1}^e \frac{\sum_{j=1}^{p} s_{ij}}{p}}{e}
 
 The $e$ value represents the number of independent executions of the clustering algorithm and was fixed to 10. The $p$ value is the number of objects of the respective dataset being used; $s_{ij}$ is the silhouette index (Sub-section~\ref{sec:sillhouetteIndex}) of the $j^{\text{th}}$ object of the $i^{\text{th}}$ execution. Basically the fitness function is given by the average of the silhouette value for every object of the dataset in each execution of the clustering algorithm.
 
-%S estruturar a descrição do GE-Clust em itens: individual representation, operadores, fitness e caracteristicas do  evolution process.
+%R estruturar a descrição do GE-Clust em itens: individual representation, operadores, fitness e caracteristicas do evolution process.
+GE-Clust, used to evolve the clustering algorithms, is similar to a traditional GA, however the individual solutions have not fixed length, whereas the generated algorithms can have different sizes.For the individuals' representation, as said before, each individual is a integer vector where the values are used to choose which rule from the grammar is applied to generate the clustering algorithm.
 
-GE-Clust, used to evolve the clustering algorithms, is similar to a traditional GA, however the individual solutions have not fixed length, whereas the generated algorithms can have different sizes. Since the solutions are not of fixed length it is possible after applying a crossover or mutation operator that one individual has less genes than the required for building a clustering algorithm. The approach for this situation is to continue getting the integer values from the beginning of the individual in order to fill all functions required by a clustering algorithm. Also, it is possible to occur the inverse situation: when an individual is bigger than the necessary to build a clustering algorithm. The strategy adopted here is to simply discard the portion that is not being used. It is worthwhile to mention that individuals in GE do not necessarily use all their genes to be decoded to a program. A prune operator was proposed by~\cite{ryan1998grammatical} to reduce the possibilities of crossover operations being applied on genes that are not decoded to a program. The prune operator consists on given a probability, truncate the offspring generated by the crossover and mutation operators. Another operator that was proposed to deal with GE is the duplication operator inspired by the biological background. It consists on duplicating a random number of genes in the end of the original individual, also given a probability of occurrence. The main idea here is to duplicate the genes in order to increase their presence on the overall individual.
+Since the solutions are not of fixed length it is possible after applying a crossover or mutation operator that one individual has less genes than the required for building a clustering algorithm. The approach for this situation is to continue getting the integer values from the beginning of the individual in order to fill all functions required by a clustering algorithm. Also, it is possible to occur the inverse situation: when an individual is bigger than the necessary to build a clustering algorithm. The strategy adopted here is to simply discard the portion that is not being used. It is worthwhile to mention that individuals in GE do not necessarily use all their genes to be decoded to a program. A prune operator was proposed by~\cite{ryan1998grammatical} to reduce the possibilities of crossover operations being applied on genes that are not decoded to a program. The prune operator consists on given a probability, truncate the offspring generated by the crossover and mutation operators. Another operator that was proposed to deal with GE is the duplication operator inspired by the biological background. It consists on duplicating a random number of genes in the end of the original individual, also given a probability of occurrence. The main idea here is to duplicate the genes in order to increase their presence on the overall individual.
 
-The GE-Clust algorithm was implemented using the open source architecture from jMetal framework~\cite{jMetal}. jMetal is  easy to extend, has a well organized structure and also an active community.  
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The fitness evaluation occur as mentioned before by the using of the Silhouette Index, where each object of the data set has its quality evaluated by how well is this object placed in relation to its cluster and the other clusters.
 
 
 \section{Experimental Evalution} \label{sec:experiments}
 
 This section describes the experiments conducted to evaluate the proposed approach and the implemented algorithm GE-Clust.
 
+
 \subsection{Experiment Setup}
 
-
-The experiment used four well-known clustering datasets from UCI machine learning database~\cite{uci}. Table \ref{uci-experiments} shows the amount of instances, numbers of attributes and the data type of the datasets. 
+The GE-Clust algorithm was implemented using the open source architecture from jMetal framework~\cite{durillo2011jmetal}. jMetal is easy to extend, has a well organized structure and also an active community. The experiment used four well-known clustering datasets from UCI machine learning database \cite{uci}. Table \ref{uci-experiments} shows the amount of instances, numbers of attributes and the data type of the datasets. 
 
 
 \begin{table}[]
@@ -328,10 +309,10 @@ The experiment used four well-known clustering datasets from UCI machine learnin
 \end{table}
 
 
-
 The GE-Clust was executed 10 independent runs with each dataset using the same configuration presented in Table~\ref{ge-configuration}. The evaluation of the individuals was made using the fitness function presented on Equation~\ref{equation:fitness}.
 
 In order to make comparisons, the K-means algorithm was executed 10 times with different K values. The K value varied within the range 2 to 7 and only the best k configuration (the one whose obtained the highest fitness values) is considered.
+
 
 \begin{table}[]
 	\centering
@@ -348,16 +329,17 @@ In order to make comparisons, the K-means algorithm was executed 10 times with d
 	\end{tabular}
 \end{table}
 
-%S talvez seja melhor tb colocar um paragrafo sobre a metodologia de análise dos resultados.
+
+%R talvez seja melhor tb colocar um paragrafo sobre a metodologia de análise dos resultados.
+For the result analysis, the results of the GE-Clust individuals were compared to the K-means algorithm using the K obtained from the GE-Clust individual.
+
 
 \subsection{Results and Analysis}
 
 
 %S será suficiente usar só  esta comparação com o fitness ??? não deveriamos usar outros indicadores?
-
 Table \ref{results-ge-and-kmeans} presents the results obtained by both algorithms. The table contains average, 
-standard deviation, minimum and maximum values of the fitness value,  from the best individual of each run of each algorithm. The amount of clusters (k) found by GE-Clust is also presented.
-
+standard deviation, minimum and maximum values of the fitness value, from the best individual of each run of each algorithm. The amount of clusters (k) found by GE-Clust is also presented.
 
 
 \begin{table*}[]
@@ -433,9 +415,8 @@ standard deviation, minimum and maximum values of the fitness value,  from the b
 
 Looking at Table~\ref{results-ge-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the best individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions.
 
-%S referencia para o teste Kruskal
-
-In the case of the Statlog (Heart) database,  the GE-Clust obtained a better average value of 0.409 while K-means algorithm reached 0.383. According to the  Kruskal-Wallis statistic test~\cite{}, these results have statistical difference.
+%R referencia para o teste Kruskal
+In the case of the Statlog (Heart) database,  the GE-Clust obtained a better average value of 0.409 while K-means algorithm reached 0.383. According to the  Kruskal-Wallis statistic test \cite{mckight2010kruskal}, these results have statistical difference.
 
 In the Glass database, the results of GE-Clust have lower values than K-means, 0.597 and 0.624, respectively, also with statistical difference according to Kruskal- Wallis test. 
 
@@ -476,10 +457,9 @@ The paper of~\cite{bolton2015optimizing} is about the challenging task of projec
 As we can observe, the automatic evolution of clustering algorithms is an important topic, which has been recently explored. Few works are dedicated to this subject.   Works in the literature are not based on Grammatical Evolution. They use other functions such as:  and, or and mathematical functions. The most similar work is the proposed in~\cite{bolton2015optimizing} but the paper does not have all the details needed to reply the study.  As far as we know this is the first time that Grammatical Evolution is used for clustering algorithm generation. 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Conclusion}
 \label{sec:conclusion}
+
 
 In this study, the automatic design of clustering algorithms is faced by a Grammatical Evolution approach. Grammatical evolution is a form of genetic programming which uses a grammar to map between the genotype and the phenotype. The definition of a good rule set is crucial for the success of a GE approach. 
 
@@ -493,7 +473,6 @@ Based on the conducted experiments, it is possible to conclude that the proposed
 %S acertar estas duas referencias: bolton e yan. o que são e de onde?
 
 %Warning--empty journal in bolton2015optimizing
-%Warning--empty year in bolton2015optimizing
 %Warning--there's a number but no volume in langdon2013optimising
 %Warning--empty journal in yan2005methods
 
