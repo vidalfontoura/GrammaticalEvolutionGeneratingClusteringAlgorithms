@@ -39,11 +39,11 @@
 \author{
 Vidal D. da Fontoura\\
 Universidade Federal do Paraná\\
-vidalfontoura16@gmail.com
+vidalfontoura16@gmail.com\\
 \and
 Ricardo H. R. de Lima\\
 Universidade Federal do Paraná\\
-ricardo.hrlima@gmail.com
+ricardo.hrlima@gmail.com\\
 }
 
 
@@ -66,7 +66,7 @@ ricardo.hrlima@gmail.com
 
 Modern methods of data collection have allowed gathering a huge quantity of data. Therefore, there is an increasing demand for grouping and filtering important data and extract useful information from the collected data~\cite{ahalya2015data}, and as a consequence, a crescent research interest in the area of clustering algorithms. Clustering is the unsupervised learning of patterns (observations, data items, or feature vectors) into groups (clusters) \cite{jain1988algorithms}. Clustering approach applications have increased in various areas of Artificial Intelligence, data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping in a set of unlabeled data~\cite{ahalya2015data}.
 
-The main problem in the application of clustering methods is that the algorithms need many parameters that are domain dependent, hindering their application. In this sense, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study that aims automatically creating novel algorithms designed to perform better on certain classes of problems than would a general algorithm modified by hand for that purpose~\cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics is  often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has raised interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators~\cite{poli2014genetic}. The GP provides a way to automate one of the most expensive and time-consuming aspects of the software engineering process: the production of the code itself~\cite{langdon2013optimising}. The GP algorithms are responsible for selection of individual parts (functions, routines, pieces of code) to build an algorithm and then evaluate it in order to search for a design that best solve a certain type of problem.
+The main problem in the application of clustering methods is that the algorithms need many parameters that are domain dependent, hindering their application. In this sense, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study that aims automatically creating novel algorithms designed to perform better on certain classes of problems than would a general algorithm modified by hand for that purpose~\cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics is  often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has raised interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators~\cite{poli2014genetic}. The GP provides a way to automate one of the most expensive and time-consuming aspects of the software engineering process: the production of the code itself~\cite{langdon2015optimising}. The GP algorithms are responsible for selection of individual parts (functions, routines, pieces of code) to build an algorithm and then evaluate it in order to search for a design that best solve a certain type of problem.
 
 Deeper in the idea of evolving computer programs, one of the used approaches in Genetic Programming is the Grammatical Evolution (GE), where a BNF (Backus-Naur Form) grammar is used to generate sentences for a given language, theses sentences are mapped into  computer programs that are evaluated by the algorithm. Finally, the generated algorithm is executed and its performance is used as feedback for the evolutionary process.
 
@@ -384,33 +384,6 @@ standard deviation, minimum and maximum values of the fitness value, from the be
 	\end{tabular}
 \end{table*}
 
-\begin{table*}[]
-	\centering
-	\caption{Statistics of algorithms execution time}
-	\label{resultsTimeExecution}
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		\textbf{Dataset}                       & \multicolumn{1}{l|}{\textbf{Statistics}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}GE-Clust Execution\\ Time (h)\end{tabular}}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}GE-Clust Best Individual \\ Execution Time (ms)\end{tabular}}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}K-Means\\ Execution Time (ms)\end{tabular}}} \\ \hline
-		\multirow{4}{*}{Pima Indians Diabetes}       & Average                                  & 261.7                                                  & 10581.7                                                                                                         & 
-		102.6                                                                                               \\ \cline{2-5} 
-		& Std Dev                                  & 56.5                                                                                       & 922.9                                                                                                           & 39.3                                                                                               \\ \cline{2-5} 
-		& Min                                      & 199.0                                                                                         & 8809.9                                                                                                           & 71.0                                                                                                 \\ \cline{2-5} 
-		& Max                                      & 349.0                                                                                        & 11933.0                                                                                                          & 71.0                                                                                                \\ \hline
-		\multirow{4}{*}{Statlog (Heart)}       & Average                                  & 28.1                                                                                          & 1468.8                                                                                                          & 20.3                                                                                                \\ \cline{2-5} 
-		& Std Dev                                  & 5.72                                                                                          & 243.5                                                                                                           & 11.6                                                                                                \\ \cline{2-5} 
-		& Min                                      & 18.3                                                                                          & 885.0                                                                                                           & 7.0                                                                                                 \\ \cline{2-5} 
-		& Max                                      & 35.7                                                                                          & 1738.0                                                                                                          & 52.0                                                                                                \\ \hline
-		\multirow{4}{*}{Glass Identification}  & Average                                  & 9.0                                                                                          & 2602.1                                                                                                          & 14.8                                                                                                \\ \cline{2-5} 
-		& Std Dev                                  & 2.6                                                                                           & 502.69                                                                                                          & 13.0                                                                                                \\ \cline{2-5} 
-		& Min                                      & 5.5                                                                                          & 1610.0                                                                                                          & 3.0                                                                                                 \\ \cline{2-5} 
-		& Max                                      & 12.9                                                                                          & 3185.0                                                                                                          & 45.0                                                                                                \\ \hline
-		\multirow{4}{*}{Iris}                  & Average                                  & 7.2                                                                                           & 1074.5                                                                                                          & 15.1                                                                                                \\ \cline{2-5} 
-		& Std Dev                                  & 2.7                                                                                           & 383.9                                                                                                           & 14.9                                                                                                \\ \cline{2-5} 
-		& Min                                      & 4.1                                                                                           & 558.0                                                                                                           & 7.0                                                                                                 \\ \cline{2-5} 
-		& Max                                      & 13.3                                                                                          & 1786.0                                                                                                          & 59.0                                                                                                \\ \hline
-	\end{tabular}
-\end{table*}
-
 
 
 Looking at Table~\ref{results-ge-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the best individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions.
@@ -423,8 +396,6 @@ In the Glass database, the results of GE-Clust have lower values than K-means, 0
 Finally, for the Glass database the best individuals of GE-Clust obtained 0.644 and the K-means reached 0.681, again with statistical difference.
 
 Moreover, it is possible to note that for all 10 executions of the GE-Clust, the generated algorithms used two clusters. In the case of the k-means algorithm the results that presented the highest fitness values were obtained also using $k=2$. For the sake of space the results with $k = (3,4,5,6,7)$ were suppressed.
-
-Table~\ref{resultsTimeExecution} presents some computational time information of the algorithms. The statistic summary of 10 GE-Clust executions, in hours, is presented in the third column. The fourth column shows the statistics related to the time taken, in milliseconds, to execute 10 times the best individual found by the GE-Clust. The fifth column presents the statistics related to the K-means algorithm execution.
 
 By analysing the results it is possible to check our hypothesis and we can conclude that the clustering algorithms generated by our approach are able to reach good and acceptable values for the fitness function in terms of  the silhouette index. The fitness values obtained by the generated algorithms in two of four databases are better than the ones obtained by the K-means algorithm, although in the other databases the difference between the fitness values was very small. Therefore, in the context evaluated here, the generated algorithms proved to be competitive to K-means algorithm. Moreover, it is possible to highlight one advantage of the proposed approach: there is no need to configure the number of clusters which usually is a non-trivial task as mentioned by many authors~\cite{pham2005selection, yan2005methods, tibshirani2001estimating}.
 
@@ -472,8 +443,6 @@ Based on the conducted experiments, it is possible to conclude that the proposed
 
 %S acertar estas duas referencias: bolton e yan. o que são e de onde?
 
-%Warning--empty journal in bolton2015optimizing
-%Warning--there's a number but no volume in langdon2013optimising
 %Warning--empty journal in yan2005methods
 
 %S ver o padrão de referencias do congresso, tem algumas que estão com iniciais somente, outras tem os nomes completos.
@@ -485,5 +454,3 @@ Based on the conducted experiments, it is possible to conclude that the proposed
 
 % that's all folks
 \end{document}
-
-
