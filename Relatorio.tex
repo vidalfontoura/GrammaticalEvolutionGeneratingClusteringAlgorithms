@@ -11,6 +11,9 @@
 \usepackage{graphicx}
 
 %Tabelas
+\usepackage[table,xcdraw]{xcolor}
+
+%Tabelas
 \usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -26,9 +29,6 @@
 \usepackage{amsmath}
 \grammarindent 50pt
 
-%Renomear TABLE para TABELA
-%\renewcommand{\tablename}{TABELA.}
-%\renewcommand{\refname}{Referências}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -198,6 +198,27 @@
 	
 	The Silhouette Index, is the average of the Silhouette value for each object in the dataset.
 	
+	Another metric for Clustering Algorithms evaluation in the Davies-Bouldin index (DBI) \cite{davies1979cluster}. This is an internal evaluation scheme, where the validation of how well the clustering has been done is made using quantities and features inherent to the dataset.
+	
+	The Davies-Bouldin index can be calculated by the following formula:
+	
+	\begin{equation} \label{eq:davies}
+		DBI = \frac{1}{N} \sum_{i=1}^{N} max_{j \neq i} \left(\frac{\sigma_i + \sigma_j}{d(c_i, c_j)}\right)
+	\end{equation}
+	
+	where $n$ is the number of clusters, $c_x$ is the centroid of cluster $x$, $\sigma_x$ is the average distance of all elements in cluster $x$ to centroid $c_x$, and $d(c_i, c_j)$ is the distance between centroids $c_i$ and $c_j$. Since algorithms that produce clusters with low intra-cluster distances (high intra-cluster similarity) and high inter-cluster distances (low inter-cluster similarity) will have a low Davies–Bouldin index, the clustering algorithm that produces a collection of clusters with the smallest Davies–Bouldin index is considered the best algorithm based on this criterion.
+	
+	
+	A third metric that was used in this work is the Dunn index (DI) \cite{dunn1973fuzzy}. The Dunn index aims to identify dense and well-separated clusters. It is defined as the ratio between the minimal inter-cluster distance to maximal intra-cluster distance. For each cluster partition, the Dunn index can be calculated by the following formula:
+	
+	\begin{equation} \label{eq:dunn}
+		DI = \frac{min_{1\le i < j\le n}~d(i, j)}{max_{1\le k \le n}~d'(k)}
+	\end{equation}
+	
+	
+	where $d(i, j)$ represents the distance between clusters $i$ and $j$, and $d'(k)$ measures the intra-cluster distance of cluster $k$. The inter-cluster distance $d(i, j)$ between two clusters may be any number of distance measures, such as the distance between the centroids of the clusters. Similarly, the intra-cluster distance $d'(k)$ may be measured in a variety ways, such as the maximal distance between any pair of elements in cluster $k$. Since internal criterion seek clusters with high intra-cluster similarity and low inter-cluster similarity, algorithms that produce clusters with high Dunn index are more desirable.
+	
+	
 	\section{Proposed Approach} \label{sec:methodology}
 	
 	
@@ -233,13 +254,14 @@
 		\label{gr:proposed_grammar}
 	\end{figure}
 	
-	\texttt{ +}, \texttt{-} , \texttt{*}, \texttt{/},   as operations and \texttt{x}, \texttt{y} and  \texttt{z}   as variables. For the non-terminal nodes, we have:  $\langle op \rangle$, $\langle expr \rangle$  and $\langle var \rangle$. 
+	
+	\texttt{+}, \texttt{-} , \texttt{*}, \texttt{/}, as operations and \texttt{x}, \texttt{y} and \texttt{z} as variables. For the non-terminal nodes, we have: $\langle op \rangle$, $\langle expr \rangle$  and $\langle var \rangle$. 
 	
 	
 	For the $\langle initialization \rangle$ node, two possibilities of terminal nodes were implemented: \texttt{random} and \texttt{uniform}. The \texttt{random} initialization randomly selects  objects as centroids of the clusters. The \texttt{uniform} initialization consists of finding the minimum and maximum values for each attribute of the dataset. This information is used to uniformly select the coordinates (within this range) for centroids. Moreover, for both initialization methods, an initial value of K (number of clusters) is chosen between five possible values: \texttt{4, 6, 8, 10} and \texttt{0}. If the chosen K value is equals to 0 it will be drawn a random number between 2 and 5. Note that, this K value is an initial value because the grammar allows to create or destroy clusters. 
 	
 	
-	Three possibilities of distance functions were implemented: \texttt{Euclidean}, \texttt{Manhattan} and \texttt{Chebyshev}. The selected distance function will be used by all other functions that require information about the distance between data. The command component is the main body of the structure and allows the creation or destruction of clusters, as well as, movements of data from one cluster to other. This component can potentially generate programs with 10, 100 or infinite functions since it has a recursion. In order to avoid programs with too many functions, a maximum depth value was set to 20. The terminal nodes are described at next.
+	Three possibilities of distance functions were implemented: \texttt{Euclidean}, \texttt{Manhattan} and \texttt{Chebyshev}. The selected distance function will be used by all other functions that require information about the distance between data. The command component is the main body of the structure and allows the creation or destruction of clusters, as well as movements of data from one cluster to another. This component can potentially generate programs with 10, 100 or a infinite number of functions since it has a recursion. In order to avoid programs with too many functions, a maximum depth value was set to 20. The terminal nodes are described at next.
 	
 	
 	\begin{itemize}
@@ -252,6 +274,7 @@
 	
 	
 	The grammar can generate clustering algorithms based on an integer vector. As sampled below, this process is illustrated by starting with the integer vector (genotype) and following the steps to decode into a clustering algorithm (phenotype). 
+	
 	Supposing the following integer vector:
 	
 	\vspace{0.2cm}
@@ -260,10 +283,9 @@
 	
 	\vspace{0.2cm}
 	
+	The first gene is 199 and it is the entry point. The $\langle initialization \rangle$ is the first non-terminal node. The next position in the vector is 45 and we have 2 options (\texttt{random} and \texttt{uniform}); thus 45 $mod$ 2 will result in 1 which selects \texttt{uniform}. The $\langle initialization \rangle$ requires another selection for the initial K value. Following the vector, the next value is 172. There are 5 possibilities for K. Hence 172 $mod$ 5 = 2, which is the index of the value 8. The $\langle initialization \rangle$ is ended.
 	
-	The first gene is 199 and it is the entry point. The initialization is the first non-terminal node. The next position in the vector is 45 and we have 2 options (\textit{random} and \texttt{uniform}); thus 45 mod 2 will result in 1 which selects \texttt{uniform}. The initialization requires another selection for the initial K value. Following the vector, the next value is 172. There are 5 possibilities for K. Hence 172 mod 5 = 2, which is the index of the value \textbf{8}. The initialization is ended. 
-	
-	The second non-terminal node is distance. There are three possible terminal node options. Next value in the vector is 156; 156 mod 3 results in 0, which corresponds to \textbf{Euclidean}. Now, it is necessary to decode the \textit{command} non-terminal node. Next position is 157 and two possibilities (\textit{movement} or \textit{movement + command}). Then 157 mod 2 = 1. Therefore, the selected one is \textbf{movement + command}. First step is to decode \textbf{movement} and the next step  is to  decode  \textbf{command}. Next position is 137 and there are 5 possibilities, thus the result is 2. The index 2 in the grammar is the \textbf{moveAverage} option. Now it is necessary to evaluate \textbf{command}; as before, there are 2 choices. As 191 mod 2 = 1, \textbf{movement + command} is selected again. This is repeated until the mod results 0,  and then, last \textbf{movement} is selected or until the max depth limit (20) is exceeded. The entire decoded clustering algorithm is presented in Algorithm~\ref{clustering-algoritm-example}.
+	The second non-terminal node is $\langle distance \rangle$. There are three possible terminal node options. Next value in the vector is 156; 156 $mod$ 3 results in 0, which corresponds to \texttt{Euclidean}. Now, it is necessary to decode the $\langle command \rangle$ non-terminal node. Next position is 157 and two possibilities ($\langle movement \rangle$ or $\langle movement + command \rangle$). Then 157 $mod$ 2 = 1. Therefore, the selected one is $\langle movement + command \rangle$. First step is to decode $\langle movement\rangle$ and the next step is to decode  $\langle command \rangle$. Next position is 137 and there are 5 possibilities, thus the result is 2. The index 2 in the grammar is the \texttt{moveAverage} option. Now it is necessary to evaluate $\langle command \rangle$; as before, there are 2 choices. As 191 $mod$ 2 = 1, $\langle movement + command \rangle$ is selected again. This is repeated until the mod results 0,  and then, last $\langle movement \rangle$ is selected or until the max depth limit (20) is exceeded. The entire decoded clustering algorithm is presented in Algorithm~\ref{clustering-algoritm-example}.
 	
 	
 	\begin{algorithm}[!htb]
@@ -346,11 +368,11 @@
 	%R É preciso explicar melhor, reescrever a frases abaixo.
 	%R explicar que pegou as medias e também como o k foi estabelecido em ambos os casos CE-Clust e K-means.
 	
-	The GE-Clust was executed 10 independent runs with each dataset using the configuration presented in Table~\ref{ge-configuration}. At the end of each execution, the best individual was selected, resulting 10 algorithms. For the comparison, the mean values were calculated considering all 10 algorithms.
+	The GE-Clust was executed 10 independent runs for each dataset using the configuration presented in Table~\ref{ge-configuration}. At the end of each execution, the best individual was selected, resulting 10 algorithms. For the comparison, the average values were calculated considering all 10 algorithms.
 	
 	%R vcs falam que executam com k values o k-means pq está fixo na tabela?
 	
-	The K-means algorithm was executed with different K values, varying within the range 2 to 7. For each K value, the algorithm was executed 10 times. Only the best K configuration (the one whose obtained the highest fitness values) is considered. The results of the GE-Clust individuals were compared to the K-means algorithm using the K obtained from the best GE-Clust individual.
+	The K-means algorithm was executed with different K values, varying within the range 2 to 7. For each K value, the algorithm was executed 10 times. Only the best K configuration (the one whose obtained the highest fitness values) is considered. In these experiments, que best K configuration is with K = 2 for all tests. The results of the GE-Clust individuals were compared to the K-means algorithm.
 	
 	%R n�o entendi... vcs nao pegaram o melhor dos k do k-means? pelo menos � o que falaram acima.....
 	
@@ -373,14 +395,65 @@
 	\subsection{Results and Analysis}
 	
 	
-	Table \ref{results-ge-and-kmeans} presents the results obtained by both algorithms. The table contains average, standard deviation, minimum and maximum values of the fitness value, from the best individual of each run of each algorithm. The number of clusters (K) found by GE-Clust for the best individual is also presented.
+	Table \ref{silhouette-results-ge-and-kmeans} presents the results obtained by both algorithms. The table contains average, standard deviation, minimum and maximum values of the fitness value, from the best individual of each run of each algorithm. The number of clusters (K) found by GE-Clust for the best individual is also presented.
 	
 	%R Colocar tabela em uma unica coluna. Por ex tirar coluna true e usar negrito,  e tirar palavra fixed.
 		
 	\begin{table}[!htb]
 		\centering
 		\caption{Silhouette Index for generated clusters: GE-Clust and K-means}
-		\label{results-ge-and-kmeans}
+		\label{silhouette-results-ge-and-kmeans}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\textbf{Dataset}                                                                                         & \textbf{Algorithm}                                 & \textbf{Statistics}             & \textbf{Fitness}                          \\ \hline
+			& \cellcolor[HTML]{FFFFFF}                           & \cellcolor[HTML]{FFFFFF}Average & \cellcolor[HTML]{FFFFFF}\textbf{0.615165} \\ \cline{3-4} 
+			& \cellcolor[HTML]{FFFFFF}                           & \cellcolor[HTML]{FFFFFF}Std Dev & \cellcolor[HTML]{FFFFFF}0,089821          \\ \cline{3-4} 
+			& \cellcolor[HTML]{FFFFFF}                           & \cellcolor[HTML]{FFFFFF}Min     & \cellcolor[HTML]{FFFFFF}0,414012          \\ \cline{3-4} 
+			& \multirow{-4}{*}{\cellcolor[HTML]{FFFFFF}GE-Clust} & \cellcolor[HTML]{FFFFFF}Max     & \cellcolor[HTML]{FFFFFF}0,729177          \\ \cline{2-4} 
+			& \cellcolor[HTML]{FFFFFF}                           & \cellcolor[HTML]{FFFFFF}Average & \cellcolor[HTML]{FFFFFF}0,570102          \\ \cline{3-4} 
+			& \cellcolor[HTML]{FFFFFF}                           & \cellcolor[HTML]{FFFFFF}Std Dev & \cellcolor[HTML]{FFFFFF}0,000000          \\ \cline{3-4} 
+			& \cellcolor[HTML]{FFFFFF}                           & \cellcolor[HTML]{FFFFFF}Min     & \cellcolor[HTML]{FFFFFF}0,570102          \\ \cline{3-4} 
+			\multirow{-8}{*}{\begin{tabular}[c]{@{}c@{}}Pima Indians\\ Diabetes\end{tabular}}                        & \multirow{-4}{*}{\cellcolor[HTML]{FFFFFF}K-Means}  & \cellcolor[HTML]{FFFFFF}Max     & \cellcolor[HTML]{FFFFFF}0,570102          \\ \hline
+			&                                                    & Average                         & \textbf{0,441919}                         \\ \cline{3-4} 
+			&                                                    & Std Dev                         & 0,175028                                  \\ \cline{3-4} 
+			&                                                    & Min                             & 0,192408                                  \\ \cline{3-4} 
+			& \multirow{-4}{*}{GE-Clust}                         & Max                             & 0,760842                                  \\ \cline{2-4} 
+			&                                                    & Average                         & 0,383325                                  \\ \cline{3-4} 
+			&                                                    & Std Dev                         & 0,001524                                  \\ \cline{3-4} 
+			&                                                    & Min                             & 0,382145                                  \\ \cline{3-4} 
+			\multirow{-8}{*}{\begin{tabular}[c]{@{}c@{}}Statlog\\ (Hearth)\end{tabular}}                             & \multirow{-4}{*}{K-Means}                          & Max                             & 0,385096                                  \\ \hline
+			\rowcolor[HTML]{FFFFFF} 
+			\cellcolor[HTML]{FFFFFF}                                                                                 & \cellcolor[HTML]{FFFFFF}                           & Average                         & 0,605818                                  \\ \cline{3-4} 
+			\rowcolor[HTML]{FFFFFF} 
+			\cellcolor[HTML]{FFFFFF}                                                                                 & \cellcolor[HTML]{FFFFFF}                           & Std Dev                         & 0,023390                                  \\ \cline{3-4} 
+			\rowcolor[HTML]{FFFFFF} 
+			\cellcolor[HTML]{FFFFFF}                                                                                 & \cellcolor[HTML]{FFFFFF}                           & Min                             & 0,541715                                  \\ \cline{3-4} 
+			\rowcolor[HTML]{FFFFFF} 
+			\cellcolor[HTML]{FFFFFF}                                                                                 & \multirow{-4}{*}{\cellcolor[HTML]{FFFFFF}GE-Clust} & Max                             & 0,621250                                  \\ \cline{2-4} 
+			\rowcolor[HTML]{FFFFFF} 
+			\cellcolor[HTML]{FFFFFF}                                                                                 & \cellcolor[HTML]{FFFFFF}                           & Average                         & \textbf{0,624822}                         \\ \cline{3-4} 
+			\rowcolor[HTML]{FFFFFF} 
+			\cellcolor[HTML]{FFFFFF}                                                                                 & \cellcolor[HTML]{FFFFFF}                           & Std Dev                         & 0,000008                                  \\ \cline{3-4} 
+			\rowcolor[HTML]{FFFFFF} 
+			\cellcolor[HTML]{FFFFFF}                                                                                 & \cellcolor[HTML]{FFFFFF}                           & Min                             & 0,624818                                  \\ \cline{3-4} 
+			\rowcolor[HTML]{FFFFFF} 
+			\multirow{-8}{*}{\cellcolor[HTML]{FFFFFF}\begin{tabular}[c]{@{}c@{}}Glass\\ Identification\end{tabular}} & \multirow{-4}{*}{\cellcolor[HTML]{FFFFFF}K-Means}  & Max                             & 0,624836                                  \\ \hline
+			&                                                    & Average                         & 0,651381                                  \\ \cline{3-4} 
+			&                                                    & Std Dev                         & 0,061078                                  \\ \cline{3-4} 
+			&                                                    & Min                             & 0,483527                                  \\ \cline{3-4} 
+			& \multirow{-4}{*}{GE-Clust}                         & Max                             & 0,686973                                  \\ \cline{2-4} 
+			&                                                    & Average                         & \textbf{0,681304}                         \\ \cline{3-4} 
+			&                                                    & Std Dev                         & 0,000000                                  \\ \cline{3-4} 
+			&                                                    & Min                             & 0,681304                                  \\ \cline{3-4} 
+			\multirow{-8}{*}{Iris}                                                                                   & \multirow{-4}{*}{K-Means}                          & Max                             & 0,681304                                  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	
+	\begin{table}[!htb]
+		\centering
+		\caption{Davies-Bouldin Index for generated clusters: GE-Clust and K-means}
+		\label{davies-results-ge-and-kmeans}
 		\begin{tabular}{|c|c|c|c|c|}
 			\hline
 			\textbf{Dataset}                                                                 & \textbf{Algorithm}        & \textbf{Statistics} & \textbf{Fitness}  & \textbf{k}         \\ \hline
@@ -420,6 +493,48 @@
 	\end{table}
 	
 	
+	\begin{table}[!htb]
+		\centering
+		\caption{Dunn Index for generated clusters: GE-Clust and K-means}
+		\label{dunn-results-ge-and-kmeans}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			\textbf{Dataset}                                                                 & \textbf{Algorithm}        & \textbf{Statistics} & \textbf{Fitness}  & \textbf{k}         \\ \hline
+			\multirow{8}{*}{\begin{tabular}[c]{@{}c@{}}Pima Indians\\ Diabetes\end{tabular}} & \multirow{4}{*}{GE-Clust} & Average             & \textbf{0.605378} & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.009389          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.586250          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.616885          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & 0.570102          & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0,000000          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.570102          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.570102          &                    \\ \hline
+			\multirow{8}{*}{Statlog (Heart)}                                                 & \multirow{4}{*}{GE-Clust} & Average             & \textbf{0.597191} & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.018334          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.384030          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.441919          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & 0.383325          & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0.001524          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.382145          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.385096          &                    \\ \hline
+			\multirow{8}{*}{Glass Identification}                                            & \multirow{4}{*}{GE-Clust} & Average             & 0.597191          & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.006850          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.588779          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.605818          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & \textbf{0.624822} & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0.000008          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.624818          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.624836          &                    \\ \hline
+			\multirow{8}{*}{Iris}                                                            & \multirow{4}{*}{GE-Clust} & Average             & 0.644598          & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.013778          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.625916          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.674525          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & \textbf{0.681304} & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0.000000          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.681304          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.681304          &                    \\ \hline
+		\end{tabular}
+	\end{table}
+	
 	
 	Looking at Table~\ref{results-ge-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the best individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions. In the case of the Statlog (Heart) database, the GE-Clust obtained a better average value of 0.409 while K-means algorithm reached 0.383. In the Glass database, the results of GE-Clust have lower values than K-means, 0.597 and 0.624, respectively. Finally, for the Glass database the best individuals of GE-Clust obtained 0.644 and the K-means reached 0.681. According to the Kruskal-Wallis statistic test \cite{mckight2010kruskal}, the results for all four bases have statistical difference.
 	
@@ -446,7 +561,7 @@
 	
 	\section{Related Work} \label{sec:related_work}
 	
-	In this section we describe some works that served as motivation and gave support to our work, and other ones that address the automatic generation of clustering algoritms.  
+	In this section is described about some works that served as motivation and gave support to this work, and other ones that address the automatic generation of clustering algoritms.
 	
 	%S Falta a citacao do lourenco 2015.
 	
@@ -458,7 +573,7 @@
 	
 	Contreras-Bolton and Parada~\cite{bolton2015optimizing} address efficient design of algorithms for difficult combinatorial optimization problems. There is large amount of heuristic, meta-heuristic and hyper-heuristic methods showing that combining algorithms can produce better results than using each algorithm alone. In the paper, the authors propose the use of Genetic Programming to automate the design of Clustering algorithms. They create some functions that represents common operations made in clustering algorithms to represent the nodes required by GP, so the evolutionary could produce algorithms based on these functions. There are other approaches for the Clustering problem using GP like the paper of~\cite{boric2007genetic}, that uses Information Theoretic Fitness Measure -- a probabilistic interpretation of the space of objects -- for clustering.'
 	
-	As we can observe, the automatic evolution of clustering algorithms is an important topic, which has been recently explored. Few works are dedicated to this subject. Works in the literature are not based on Grammatical Evolution. They use other functions such as:  and, or and mathematical functions. The most similar work is the proposed in~\cite{bolton2015optimizing} but the paper does not have all the details needed to reply the study.  As far as we know this is the first time that Grammatical Evolution is used for clustering algorithm generation. 
+	As we can observe, the automatic evolution of clustering algorithms is an important topic, which has been recently explored. Few works are dedicated to this subject. Works in the literature are not based on Grammatical Evolution. They use other functions such as: \texttt{and}, \texttt{or} and mathematical functions. The most similar work is the proposed in~\cite{bolton2015optimizing} but the paper does not have all the details needed to reply the study.  As far as we know this is the first time that Grammatical Evolution is used for clustering algorithm generation. 
 	
 	
 	\section{Conclusion}
