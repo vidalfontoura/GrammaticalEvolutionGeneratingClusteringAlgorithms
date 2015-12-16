@@ -343,15 +343,16 @@
 		\end{tabular}
 	\end{table}
 	
-	%S É preciso explicar melhor, reescrever a frases abaixo.
-	%S explicar que pegou as medias e também como o k foi estabelecido em ambos os casos CE-Clust e K-means.
+	%R É preciso explicar melhor, reescrever a frases abaixo.
+	%R explicar que pegou as medias e também como o k foi estabelecido em ambos os casos CE-Clust e K-means.
 	
-	The GE-Clust was executed 10 independent runs with each dataset using the same configuration, presented in Table~\ref{ge-configuration}. At the end 10 algorithms were generated. In the comparison, we calculated the mean values, considering all algorithms.
+	The GE-Clust was executed 10 independent runs with each dataset using the configuration presented in Table~\ref{ge-configuration}. At the end of each execution, the best individual was selected, resulting 10 algorithms. For the comparison, the mean values were calculated considering all 10 algorithms.
 	
-	%S vcs falam que executam com k values o k-means pq está fixo na tabela?
+	%R vcs falam que executam com k values o k-means pq está fixo na tabela?
 	
-	In order to make comparisons, the K-means algorithm was executed 10 times with different K values, varying within the range 2 to 7. Only the best k configuration (the one whose obtained the highest fitness values) is considered.
+	The K-means algorithm was executed with different K values, varying within the range 2 to 7. For each K value, the algorithm was executed 10 times. Only the best K configuration (the one whose obtained the highest fitness values) is considered. The results of the GE-Clust individuals were compared to the K-means algorithm using the K obtained from the best GE-Clust individual.
 	
+	%R n�o entendi... vcs nao pegaram o melhor dos k do k-means? pelo menos � o que falaram acima.....
 	
 	\begin{table}[]
 		\centering
@@ -367,81 +368,67 @@
 			{Generations}                       & 200                               \\ \hline
 		\end{tabular}
 	\end{table}
-	
-	%S n�o entendi... vcs nao pegaram o melhor dos k do k-means? pelo menos � o que falaram acima.....
-	
-	The results of the GE-Clust individuals were compared to the K-means algorithm using the K obtained from the GE-Clust individual.
-	
+
 	
 	\subsection{Results and Analysis}
 	
-	Table \ref{results-ge-and-kmeans} presents the results obtained by both algorithms. The table contains average, 
-	standard deviation, minimum and maximum values of the fitness value, from the best individual of each run of each algorithm. The number  of clusters (k) found by GE-Clust is also presented.
 	
-	%S Colocar tabela em uma unica coluna. Por ex tirar coluna true e usar negrito,  e tirar palavra fixed.
+	Table \ref{results-ge-and-kmeans} presents the results obtained by both algorithms. The table contains average, standard deviation, minimum and maximum values of the fitness value, from the best individual of each run of each algorithm. The number of clusters (K) found by GE-Clust for the best individual is also presented.
 	
-	\begin{table}[]
+	%R Colocar tabela em uma unica coluna. Por ex tirar coluna true e usar negrito,  e tirar palavra fixed.
+		
+	\begin{table}[!htb]
 		\centering
 		\caption{Silhouette Index for generated clusters: GE-Clust and K-means}
 		\label{results-ge-and-kmeans}
-		\begin{tabular}{|c|c|c|c|c|c|}
+		\begin{tabular}{|c|c|c|c|c|}
 			\hline
-			\textbf{Dataset}           & \textbf{Algorithm} & \textbf{Statistics} & \textbf{Fitness} & \textbf{k}    & \textbf{Kruskal-Wallis Test}   \\ \hline
-			\multirow{8}{*}{Pima Indians Diabetes} & \multirow{4}{*}{GE-Clust}           & Average                        & \textbf{0.605378}                    & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
-			&                               & Std Dev                        & 0.009389                    & 0                        &                       \\ \cline{3-5}
-			&                               & Min                            & 0.586250                    & 2                        &                       \\ \cline{3-5}
-			&                               & Max                            & 0.616885                   & 2                        &                       \\ \cline{2-5}
-			& \multirow{4}{*}{K-Means}      & Average                        & 0.570102                   & \multirow{4}{*}{2} &                       \\ \cline{3-4}
-			&                               & Std Dev                        & 0,000000                   &                          &                       \\ \cline{3-4}
-			&                               & Min                            & 0.570102                   &                          &                       \\ \cline{3-4}
-			&                               & Max                            & 0.570102                   &                          &                       \\ \hline
-			\multirow{8}{*}{Statlog (Heart)}       & \multirow{4}{*}{GE-Clust}           & Average                        & \textbf{0.597191}                    & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
-			&                               & Std Dev                        & 0.018334                    & 0                        &                       \\ \cline{3-5}
-			&                               & Min                            & 0.384030                    & 2                        &                       \\ \cline{3-5}
-			&                               & Max                            & 0.441919                     & 2                        &                       \\ \cline{2-5}
-			& \multirow{4}{*}{K-Means}      & Average                        & 0.383325                    & \multirow{4}{*}{2} &                       \\ \cline{3-4}
-			&                               & Std Dev                        & 0.001524                    &                          &                       \\ \cline{3-4}
-			&                               & Min                            & 0.382145                    &                          &                       \\ \cline{3-4}
-			&                               & Max                            & 0.385096                    &                          &                       \\ \hline
-			\multirow{8}{*}{Glass Identification}  & \multirow{4}{*}{GE-Clust}           & Average                        & 0.597191                    & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
-			&                               & Std Dev                        & 0.006850                    & 0                        &                       \\ \cline{3-5}
-			&                               & Min                            & 0.588779                    & 2                        &                       \\ \cline{3-5}
-			&                               & Max                            & 0.605818                    & 2                        &                       \\ \cline{2-5}
-			& \multirow{4}{*}{K-Means}      & Average                        & \textbf{0.624822}                    & \multirow{4}{*}{2} &                       \\ \cline{3-4}
-			&                               & Std Dev                        & 0.000008                    &                          &                       \\ \cline{3-4}
-			&                               & Min                            & 0.624818                    &                          &                       \\ \cline{3-4}
-			&                               & Max                            & 0.624836                    &                          &                       \\ \hline
-			\multirow{8}{*}{Iris}                  & \multirow{4}{*}{GE-Clust}           & Average                        & 0.644598                   & 2                        & \multirow{8}{*}{TRUE} \\ \cline{3-5}
-			&                               & Std Dev                        & 0.013778                   & 0                        &                       \\ \cline{3-5}
-			&                               & Min                            & 0.625916                   & 2                        &                       \\ \cline{3-5}
-			&                               & Max                            & 0.674525                   & 2                        &                       \\ \cline{2-5}
-			& \multirow{4}{*}{K-Means}      & Average                        & \textbf{0.681304}                   & \multirow{4}{*}{ 2} &                       \\ \cline{3-4}
-			&                               & Std Dev                        & 0.000000                   &                          &                       \\ \cline{3-4}
-			&                               & Min                            & 0.681304                   &                          &                       \\ \cline{3-4}
-			&                               & Max                            & 0.681304                   &                          &                       \\ \cline{3-4}							\hline
+			\textbf{Dataset}                                                                 & \textbf{Algorithm}        & \textbf{Statistics} & \textbf{Fitness}  & \textbf{k}         \\ \hline
+			\multirow{8}{*}{\begin{tabular}[c]{@{}c@{}}Pima Indians\\ Diabetes\end{tabular}} & \multirow{4}{*}{GE-Clust} & Average             & \textbf{0.605378} & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.009389          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.586250          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.616885          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & 0.570102          & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0,000000          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.570102          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.570102          &                    \\ \hline
+			\multirow{8}{*}{Statlog (Heart)}                                                 & \multirow{4}{*}{GE-Clust} & Average             & \textbf{0.597191} & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.018334          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.384030          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.441919          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & 0.383325          & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0.001524          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.382145          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.385096          &                    \\ \hline
+			\multirow{8}{*}{Glass Identification}                                            & \multirow{4}{*}{GE-Clust} & Average             & 0.597191          & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.006850          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.588779          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.605818          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & \textbf{0.624822} & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0.000008          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.624818          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.624836          &                    \\ \hline
+			\multirow{8}{*}{Iris}                                                            & \multirow{4}{*}{GE-Clust} & Average             & 0.644598          & 2                  \\ \cline{3-5} 
+			&                           & Std Dev             & 0.013778          & -                  \\ \cline{3-5} 
+			&                           & Min                 & 0.625916          & 2                  \\ \cline{3-5} 
+			&                           & Max                 & 0.674525          & 2                  \\ \cline{2-5} 
+			& \multirow{4}{*}{K-Means}  & Average             & \textbf{0.681304} & \multirow{4}{*}{2} \\ \cline{3-4}
+			&                           & Std Dev             & 0.000000          &                    \\ \cline{3-4}
+			&                           & Min                 & 0.681304          &                    \\ \cline{3-4}
+			&                           & Max                 & 0.681304          &                    \\ \hline
 		\end{tabular}
 	\end{table}
 	
 	
 	
-	Looking at Table~\ref{results-ge-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the best individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions.
+	Looking at Table~\ref{results-ge-and-kmeans}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.605 average of the fitness values obtained by the best individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions. In the case of the Statlog (Heart) database, the GE-Clust obtained a better average value of 0.409 while K-means algorithm reached 0.383. In the Glass database, the results of GE-Clust have lower values than K-means, 0.597 and 0.624, respectively. Finally, for the Glass database the best individuals of GE-Clust obtained 0.644 and the K-means reached 0.681. According to the Kruskal-Wallis statistic test \cite{mckight2010kruskal}, the results for all four bases have statistical difference.
+	
+	Moreover, it is possible to note that for all 10 executions of the GE-Clust, the generated algorithms used two clusters. In the case of the K-means algorithm the results that presented the highest fitness values were obtained also using $k=2$. For the sake of space the results with $k = (3,4,5,6,7)$ were suppressed.
 	
 	
-	In the case of the Statlog (Heart) database,  the GE-Clust obtained a better average value of 0.409 while K-means algorithm reached 0.383. According to the  Kruskal-Wallis statistic test \cite{mckight2010kruskal}, these results have statistical difference.
+	%R nao sei se deveriamos deixar estes tempos....
 	
-	
-	In the Glass database, the results of GE-Clust have lower values than K-means, 0.597 and 0.624, respectively, also with statistical difference according to Kruskal- Wallis test. 
-	
-	
-	Finally, for the Glass database the best individuals of GE-Clust obtained 0.644 and the K-means reached 0.681, again with statistical difference.
-	
-	
-	Moreover, it is possible to note that for all 10 executions of the GE-Clust, the generated algorithms used two clusters. In the case of the k-means algorithm the results that presented the highest fitness values were obtained also using $k=2$. For the sake of space the results with $k = (3,4,5,6,7)$ were suppressed.
-	
-	
-	%S nao sei se deveriamos deixar estes tempos....
-	
-	For the time analysis of the algorithms. Taking as example the Diabetes dataset, the GE-Clust took an average of 261.7h (hours) to execute, that is the evolutionary process. Then, the GE-Clust best individual took an average of 1581.7ms (milliseconds) to execute and the K-means algorithm took an average of 102.6ms to execute.
+	%	For the time analysis of the algorithms. Taking as example the Diabetes dataset, the GE-Clust took an average of 261.7h (hours) to execute, that is the evolutionary process. Then, the GE-Clust best individual took an average of 1581.7ms (milliseconds) to execute and the K-means algorithm took an average of 102.6ms to execute.
 	
 	
 	Now, checking the proposed hypothesis, we can conclude that clustering algorithms generated by the presented approach are able to reach good and acceptable values for the fitness function in terms of the silhouette index. The fitness values obtained by the generated algorithms in two of four databases are better than the ones obtained by the K-means algorithm, although in the other databases the difference between the fitness values was very small. Therefore, in the context evaluated here, the generated algorithms proved to be competitive to K-means algorithm. Moreover, it is possible to highlight one advantage of the proposed approach: there is no need to configure the number of clusters, which usually is a non-trivial task, as mentioned by many authors~\cite{tibshirani2001estimating}.
@@ -449,15 +436,13 @@
 	
 	\subsection{Threats to validity}
 	
-	%S que time constraints sao estas? Acaba depondo conta, reescrever.
+	%R que time constraints sao estas? Acaba depondo conta, reescrever.
 	
-	We identify the following points that can be threats to the validity of our results. The parameters configuration was not tuned due to time constraints. The configuration was selected mainly based on literature works and some empirical experiments. It is possible that using a tuned configuration the results get improvements.
+	We identify the following points that can be threats to the validity of our results. The GE-Clust configuration was selected mainly based on literature works and some empirical experiments. It is possible that using a tuned configuration the results get improvements.
 	
 	The experiments were conducted using only 4 datasets: It is necessary to execute more experiments with a broader range of datasets in order to evaluate if the same behavior is maintained. The results strongly depend on the used grammar and future works should include new rules.
 	
 	
-	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\section{Related Work} \label{sec:related_work}
 	
@@ -467,13 +452,13 @@
 	
 	In~\cite{lourencco2012evolving,lourencco2015IEEE}, the authors proposed a Grammatical Evolution framework for the automatic design of Evolutionary Algorithms (EAs). The grammar defined has the ability to combine components that regularly appear in existing EAs, aiming at achieving novel and fully functional optimization methods. They used the Royal Road Functions to verify the capacity of the framework to evolve algorithms. The obtained results show that the framework is able to evolve simple EAs that can effectively solve the Royal Road instances. In some cases, unusual design solutions provided by the framework show competitive results with standard approaches.
 	
-	The work of Miranda and Prud\^encio~\cite{miranda2015gefpso} was one of the papers used as base for this research. The authors describe a framework to generate Particle Optimization Algorithm (PSO) using GE. The paper details how to define the grammar (the production rules and expressions used), the map process using integer vector individuals, and how to use the grammar to generate the PSO algorithm. They performed experiments on the benchmark problems, and demonstrate that the proposed method generates useful designs which achieved competitive algorithms when compared to well succeeded algorithms from the literature.
+	The work of Miranda and Prudêncio~\cite{miranda2015gefpso} was one of the papers used as base for this research. The authors describe a framework to generate Particle Optimization Algorithm (PSO) using GE. The paper details how to define the grammar (the production rules and expressions used), the map process using integer vector individuals, and how to use the grammar to generate the PSO algorithm. They performed experiments on the benchmark problems, and demonstrate that the proposed method generates useful designs which achieved competitive algorithms when compared to well succeeded algorithms from the literature.
 	
 	Burke et al~\cite{burke2012grammatical} observe that GP approaches have been employed to automatically design constructive heuristics for solving problems. These algorithms reach results that are superior to that one obtained by human-created heuristics, but in general, they do not obtain results of same quality as local search heuristics. So in their research, they proposed the use of GE to automatically generate good quality local search algorithms, that maintain their performance on new problem instances.
 	
 	Contreras-Bolton and Parada~\cite{bolton2015optimizing} address efficient design of algorithms for difficult combinatorial optimization problems. There is large amount of heuristic, meta-heuristic and hyper-heuristic methods showing that combining algorithms can produce better results than using each algorithm alone. In the paper, the authors propose the use of Genetic Programming to automate the design of Clustering algorithms. They create some functions that represents common operations made in clustering algorithms to represent the nodes required by GP, so the evolutionary could produce algorithms based on these functions. There are other approaches for the Clustering problem using GP like the paper of~\cite{boric2007genetic}, that uses Information Theoretic Fitness Measure -- a probabilistic interpretation of the space of objects -- for clustering.'
 	
-	As we can observe, the automatic evolution of clustering algorithms is an important topic, which has been recently explored. Few works are dedicated to this subject.   Works in the literature are not based on Grammatical Evolution. They use other functions such as:  and, or and mathematical functions. The most similar work is the proposed in~\cite{bolton2015optimizing} but the paper does not have all the details needed to reply the study.  As far as we know this is the first time that Grammatical Evolution is used for clustering algorithm generation. 
+	As we can observe, the automatic evolution of clustering algorithms is an important topic, which has been recently explored. Few works are dedicated to this subject. Works in the literature are not based on Grammatical Evolution. They use other functions such as:  and, or and mathematical functions. The most similar work is the proposed in~\cite{bolton2015optimizing} but the paper does not have all the details needed to reply the study.  As far as we know this is the first time that Grammatical Evolution is used for clustering algorithm generation. 
 	
 	
 	\section{Conclusion}
