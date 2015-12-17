@@ -52,6 +52,7 @@
 	\begin{abstract} 
 		
 		With the increasing amount of data generated in diverse areas, clustering algorithms are fundamental to extract hidden and useful information. However, such algorithms depend on many parameters and are domain dependent, hindering their application. In this context, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. To contribute to this emergent research subject and to the automatic design of clustering algorithms, this paper introduces a hyper-heuristic based on Grammatical Evolution (GE) for generation of clustering algorithms. The proposed approach includes a grammar that captures the main features of clustering algorithms and a fitness function based on well-known measure indexes. To support the approach, an algorithm, named GE-Clust, was implemented and evaluated in different bases from the UCI repository, and compared to the K-means algorithm. The approach  shows promising results  and advantages. For example, there is no need to configure the number of clusters.
+		
 	\end{abstract}
 	
 	% no keywords
@@ -62,16 +63,16 @@
 	\section{Introduction}
 	
 	
-	Modern methods of data collection have allowed gathering a huge quantity of data. Therefore, there is an increasing demand for grouping and filtering important data and extract useful information from the collected data~\cite{ahalya2015data}, and as a consequence, a crescent research interest in the area of clustering algorithms. Clustering is the unsupervised learning of patterns (observations, data items, or feature vectors) \cite{jain1988algorithms}. Clustering applications have increased in various areas, such as: data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping (or clusters) in a set of unlabeled data~\cite{ahalya2015data}.
+	Modern methods of data collection have allowed gathering a huge quantity of data. Therefore, there is an increasing demand for grouping and filtering important data and extract useful information from the collected data~\cite{ahalya2015data}, and as a consequence, a crescent research interest in the area of clustering algorithms. Clustering is the unsupervised learning of patterns (observations, data items, or feature vectors) \cite{jain1988algorithms}. Clustering applications have increased in various areas, such as data mining, image recognition, data statistics, etc. The main goal is to determine the intrinsic grouping (or clusters) in a set of unlabeled data~\cite{ahalya2015data}.
 	
 	
-	The main problem in the application of clustering methods is that the algorithms need many parameters that are domain dependent, hindering their application. In this sense, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study that aims automatically creating novel algorithms designed to perform better on certain classes of problems than would a general algorithm modified by hand for that purpose~\cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics is  often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has raised interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators~\cite{poli2014genetic}. The GP provides a way to automate one of the most expensive and time-consuming aspects of the software engineering process: the production of the code itself~\cite{langdon2015optimising}. The GP algorithms are responsible for selection of individual parts (functions, routines, pieces of code) to build an algorithm and then evaluate it in order to search for a design that best solves a certain type of problem.
+	The main problem in the application of clustering methods is that the algorithms need many parameters that are domain dependent, hindering their application. In this sense, the field of hyper-heuristics raises as an alternative by allowing the generation of a custom algorithm. Hyper-heuristics is a field of study that aims automatically creating novel algorithms designed to perform better on certain classes of problems than would a general algorithm modified by hand for that purpose~\cite{harris2015comparison}. The automatic design of the algorithms using Hyper-heuristics is  often done through the use of genetic programming techniques. Genetic Programming (GP) is a type of Evolutionary Algorithm (EA) that has raised interest over the years. GP is a domain-independent method that genetically breeds a population of computer programs to solve a problem, it evolves the solutions by the application of selection, mutation and crossover operators~\cite{poli2014genetic}. The GP provides a way to automate one of the most expensive and time-consuming aspects of the software engineering process: the production of the code itself~\cite{langdon2015optimising}. The GP algorithms are responsible for the selection of individual parts (functions, routines, pieces of code) to build an algorithm and then evaluate it in order to search for a design that best solves a certain type of problem.
 	
 	
 	Deeper in the idea of evolving computer programs, one of the used approaches in GP is the Grammatical Evolution (GE), where a BNF (Backus-Naur Form) grammar is used to generate sentences for a given language, these sentences are mapped into  computer programs. Finally, the generated algorithm is executed and its performance is used as feedback for the evolutionary process.
 	
 	
-	Existing approaches for evolving clustering algorithm does not use GE, most of them~\cite{ahn2011genetic, boric2007genetic, xie2006population} use tree-based GP. Although Harris and Tauritz~\cite{harris2015comparison} say that GE and GP have the same search space,  the use of GE could make easier to work with some problems. Considering this aspect, and to ease the design of clustering algorithms, in this paper we propose an approach for automatic design of clustering algorithms by applying GE. The hypothesis that guides our work is that such approach is able to generate clustering algorithms that group data as well as known algorithms with same purpose. The main advantage is to reduce effort. The approach includes a grammar that captures the main features of  clustering algorithms. It was implemented by an algorithm, named GP-Clust. The algorithms generated by GP-Clust were evaluated and compared to K-means~\cite{kanungo2002efficient} in a experiment with different bases of the UCI repository~\cite{uci}. 
+	Existing approaches for evolving clustering algorithm does not use GE, most of them~\cite{ahn2011genetic, boric2007genetic, xie2006population} use tree-based GP. Although Harris and Tauritz~\cite{harris2015comparison} say that GE and GP have the same search space,  the use of GE could make easier to work with some problems. Considering this aspect, and to ease the design of clustering algorithms, in this paper we propose an approach for the automatic design of clustering algorithms by applying GE. The hypothesis that guides our work is that such approach is able to generate clustering algorithms that group data as well as known algorithms with the same purpose. The main advantage is to reduce effort. The approach includes a grammar that captures the main features of  clustering algorithms. It was implemented by an algorithm, named GP-Clust. The algorithms generated by GP-Clust were evaluated and compared to K-means~\cite{kanungo2002efficient} in an experiment with different bases of the UCI repository~\cite{uci}. 
 	
 	This paper is organized as follows. Section~\ref{sec:theoretical_foudation} reviews some topics that are important for the full understanding of the paper. Section~\ref{sec:methodology} introduces our approach,  describes the grammar proposed for the design of the algorithms and how the algorithms are generated using GE. Section~\ref{sec:experiments} describes the conducted experiments,  presents the obtained results and shows the comparison to K-means algorithm. Finally, Section~\ref{sec:conclusion} concludes the paper and shows future research directions.
 	
@@ -92,7 +93,7 @@
 	
 	
 	
-	Grammatical evolution is a grammar based form of GP. GE accomplishes the mapping process by combining a context free grammar (CFG) with a rule selection mechanism implemented using a GA~\cite{ryan1998grammatical}. The genotype is represented as a linear string of codons (sequence of 8 bits) of variable size, which is then decoded into a vector of integers. The phenotype, which is the structure that defines the program, is represented by a derivation tree (resulting from the application of a grammar)~\cite{cerri2013grammatical}. The clear distinction between the genotype and phenotype in GE allows the evolutionary process to be performed on the search space (variable length linear genotypic) without needing to tailor the diversity-generating operator to the nature of the phenotype \cite{sabar2013grammatical}.
+	Grammatical evolution is a grammar based form of GP. GE accomplishes the mapping process by combining a context-free grammar (CFG) with a rule selection mechanism implemented using a GA~\cite{ryan1998grammatical}. The genotype is represented as a linear string of codons (sequence of 8 bits) of variable size, which is then decoded into a vector of integers. The phenotype, which is the structure that defines the program, is represented by a derivation tree (resulting from the application of a grammar)~\cite{cerri2013grammatical}. The clear distinction between the genotype and phenotype in GE allows the evolutionary process to be performed on the search space (variable length linear genotypic) without needing to tailor the diversity-generating operator to the nature of the phenotype \cite{sabar2013grammatical}.
 	
 	
 	The grammar is a set of structural rules that define the composition of sentences for a given language. The grammar is represented by Backus-Naur Form (BNF). The program is generated using an integer vector, where each codon (vector position) value is used to determine which production rule in the BNF grammar will be used.
@@ -196,7 +197,7 @@
 	s(i) = \frac{b(i) - a(i)}{max\{a(i), b(i)\}}
 	\end{equation}
 	
-	The Silhouette Index, is the average of the Silhouette value for each object in the dataset.
+	The Silhouette Index is the average of the Silhouette value for each object in the dataset.
 	
 	Another metric for Clustering Algorithms evaluation in the Davies-Bouldin index \cite{davies1979cluster}. This is an internal evaluation scheme, where the validation of how well the clustering has been done is made using quantities and features inherent to the dataset.
 	
@@ -216,7 +217,7 @@
 	\end{equation}
 	
 	
-	where $d(i, j)$ represents the distance between clusters $i$ and $j$, and $d'(k)$ measures the intra-cluster distance of cluster $k$. The inter-cluster distance $d(i, j)$ between two clusters may be any number of distance measures, such as the distance between the centroids of the clusters. Similarly, the intra-cluster distance $d'(k)$ may be measured in a variety ways, such as the maximal distance between any pair of elements in cluster $k$. Since internal criterion seek clusters with high intra-cluster similarity and low inter-cluster similarity, algorithms that produce clusters with high Dunn index are more desirable.
+	where $d(i, j)$ represents the distance between clusters $i$ and $j$, and $d'(k)$ measures the intra-cluster distance of cluster $k$. The inter-cluster distance $d(i, j)$ between two clusters may be any number of distance measures, such as the distance between the centroids of the clusters. Similarly, the intra-cluster distance $d'(k)$ may be measured in variety ways, such as the maximal distance between any pair of elements in cluster $k$. Since internal criterion seek clusters with high intra-cluster similarity and low inter-cluster similarity, algorithms that produce clusters with high Dunn index are more desirable.
 	
 	
 	\section{Proposed Approach} \label{sec:methodology}
@@ -227,7 +228,7 @@
 	
 	\subsection{Grammar Definition}
 	
-	The approach includes a specific grammar, designed  using  BNF and showed in Figure~\ref{gr:proposed_grammar}. The first line specifies the main algorithm components: initialization, distance and command. 
+	The approach includes a specific grammar, designed  using  BNF and showed in Figure~\ref{gr:proposed_grammar}. The first line specifies the main algorithm components: initialization, distance, and command. 
 	
 	%R Acertar tabulação da gramatica na figura.
 	%R acertar texto tirar os negritos e usar 
@@ -258,15 +259,15 @@
 	\texttt{+}, \texttt{-} , \texttt{*}, \texttt{/}, as operations and \texttt{x}, \texttt{y} and \texttt{z} as variables. For the non-terminal nodes, we have: $\langle op \rangle$, $\langle expr \rangle$  and $\langle var \rangle$. 
 	
 	
-	For the $\langle initialization \rangle$ node, two possibilities of terminal nodes were implemented: \texttt{random} and \texttt{uniform}. The \texttt{random} initialization randomly selects  objects as centroids of the clusters. The \texttt{uniform} initialization consists of finding the minimum and maximum values for each attribute of the dataset. This information is used to uniformly select the coordinates (within this range) for centroids. Moreover, for both initialization methods, an initial value of K (number of clusters) is chosen between five possible values: \texttt{4, 6, 8, 10} and \texttt{0}. If the chosen K value is equals to 0 it will be drawn a random number between 2 and 5. Note that, this K value is an initial value because the grammar allows to create or destroy clusters. 
+	For the $\langle initialization \rangle$ node, two possibilities of terminal nodes were implemented: \texttt{random} and \texttt{uniform}. The \texttt{random} initialization randomly selects  objects as centroids of the clusters. The \texttt{uniform} initialization consists of finding the minimum and maximum values for each attribute of the dataset. This information is used to uniformly select the coordinates (within this range) for centroids. Moreover, for both initialization methods, an initial value of K (number of clusters) is chosen between five possible values: \texttt{4, 6, 8, 10} and \texttt{0}. If the chosen K value equals to 0 it will be drawn a random number between 2 and 5. Note that, this K value is an initial value because the grammar allows to create or destroy clusters. 
 	
 	
-	Three possibilities of distance functions were implemented: \texttt{Euclidean}, \texttt{Manhattan} and \texttt{Chebyshev}. The selected distance function will be used by all other functions that require information about the distance between data. The command component is the main body of the structure and allows the creation or destruction of clusters, as well as movements of data from one cluster to another. This component can potentially generate programs with 10, 100 or a infinite number of functions since it has a recursion. In order to avoid programs with too many functions, a maximum depth value was set to 20. The terminal nodes are described at next.
+	Three possibilities of distance functions were implemented: \texttt{Euclidean}, \texttt{Manhattan} and \texttt{Chebyshev}. The selected distance function will be used by all other functions that require information about the distance between data. The command component is the main body of the structure and allows the creation or destruction of clusters, as well as movements of data from one cluster to another. This component can potentially generate programs with 10, 100 or an infinite number of functions since it has a recursion. In order to avoid programs with too many functions, a maximum depth value was set to 20. The terminal nodes are described at next.
 	
 	
 	\begin{itemize}
 		\item \texttt{joinClusters}:  selects one random cluster, then computes the nearest cluster and merges both clusters.
-		\item \texttt{splitClusters}:  searches for the cluster which has the highest average distance between the objects and its centroid, and splits it. 
+		\item \texttt{splitClusters}:  search the cluster which has the highest average distance between the objects and its centroid, and splits it. 
 		\item \texttt{moveAverage}:   gets one random object and calculates for each cluster the distance to all objects. The cluster whose average distance is the lowest will receive the selected object.
 		\item \texttt{moveBetween}:  selects one random cluster and computes the nearest cluster. Then gets the object from the second cluster which has the lowest distance to the first centroid cluster, and moves it.
 		\item \texttt{moveNear}:   gets one random object and calculates the distance to all clusters centroids. The cluster, whose distance is the lowest between the centroid and the selected object, will receive the object.
@@ -285,7 +286,7 @@
 	
 	The first gene is 199 and it is the entry point. The $\langle initialization \rangle$ is the first non-terminal node. The next position in the vector is 45 and we have 2 options (\texttt{random} and \texttt{uniform}); thus 45 $mod$ 2 will result in 1 which selects \texttt{uniform}. The $\langle initialization \rangle$ requires another selection for the initial K value. Following the vector, the next value is 172. There are 5 possibilities for K. Hence 172 $mod$ 5 = 2, which is the index of the value 8. The $\langle initialization \rangle$ is ended.
 	
-	The second non-terminal node is $\langle distance \rangle$. There are three possible terminal node options. Next value in the vector is 156; 156 $mod$ 3 results in 0, which corresponds to \texttt{Euclidean}. Now, it is necessary to decode the $\langle command \rangle$ non-terminal node. Next position is 157 and two possibilities ($\langle movement \rangle$ or $\langle movement + command \rangle$). Then 157 $mod$ 2 = 1. Therefore, the selected one is $\langle movement + command \rangle$. First step is to decode $\langle movement\rangle$ and the next step is to decode  $\langle command \rangle$. Next position is 137 and there are 5 possibilities, thus the result is 2. The index 2 in the grammar is the \texttt{moveAverage} option. Now it is necessary to evaluate $\langle command \rangle$; as before, there are 2 choices. As 191 $mod$ 2 = 1, $\langle movement + command \rangle$ is selected again. This is repeated until the mod results 0,  and then, last $\langle movement \rangle$ is selected or until the max depth limit (20) is exceeded. The entire decoded clustering algorithm is presented in Algorithm~\ref{clustering-algoritm-example}.
+	The second non-terminal node is $\langle distance \rangle$. There are three possible terminal node options. Next value in the vector is 156; 156 $mod$ 3 results in 0, which corresponds to \texttt{Euclidean}. Now, it is necessary to decode the $\langle command \rangle$ non-terminal node. Next position is 157 and two possibilities ($\langle movement \rangle$ or $\langle movement + command \rangle$). Then 157 $mod$ 2 = 1. Therefore, the selected one is $\langle movement + command \rangle$. The first step is to decode $\langle movement\rangle$ and the next step is to decode  $\langle command \rangle$. Next position is 137 and there are 5 possibilities, thus, the result is 2. The index 2 in the grammar is the \texttt{moveAverage} option. Now it is necessary to evaluate $\langle command \rangle$; as before, there are 2 choices. As 191 $mod$ 2 = 1, $\langle movement + command \rangle$ is selected again. This is repeated until the $mod$ results in 0,  and then, last $\langle movement \rangle$ is selected or until the max depth limit (20) is exceeded. The entire decoded clustering algorithm is presented in Algorithm~\ref{clustering-algoritm-example}.
 	
 	
 	\begin{algorithm}[!htb]
@@ -312,7 +313,7 @@
 	\end{algorithm}
 	
 	
-	The pseudo-code presented in Algorithm \ref{clustering-algoritm-example} is an example of and algorithm generated by the grammar. The stopping criterion in the generated algorithms is fixed using two conditions: first if no changes occurs in the clustering state or if the maximum number of evaluations exceeds. This can be seen at Line 14 of the pseudo-code. The maximum number of evaluations was adjusted to 1000 after some experiments.
+	The pseudo-code presented in Algorithm \ref{clustering-algoritm-example} is an example of an  generated by the grammar. The stopping criterion in the generated algorithms is fixed using two conditions: first if no changes occurs in the clustering state or if the maximum number of evaluations exceeds. This can be seen at Line 14 of the pseudo-code. The maximum number of evaluations was adjusted to 1000 after some experiments.
 	
 	
 	\subsection{Grammatical Evolution Process}
@@ -335,13 +336,13 @@
 	\end{equation}
 	
 	
-	The $e$ value represents the number of independent executions of the clustering algorithm and was fixed to 10. The $p$ value is the number of objects of the respective dataset being used; $s_{ij}$ is the Silhouette index of the $j^{\text{th}}$ object of the $i^{\text{th}}$ execution. Basically the fitness function using the Silhouette Index is given by the average of the $s_{ij}$ value for every object of the dataset in each execution of the clustering algorithm.
+	The $e$ value represents the number of independent executions of the clustering algorithm and was fixed to 10. The $p$ value is the number of objects of the respective dataset being used; $s_{ij}$ is the Silhouette index of the $j^{\text{th}}$ object of the $i^{\text{th}}$ execution. Basically, the fitness function using the Silhouette Index is given by the average of the $s_{ij}$ value for every object of the dataset in each execution of the clustering algorithm.
 	
 	
 	For the Davies-Bouldin and Dunn Indexes, the fitness function is calculated by retrieving information from the space of clusters and not for each point as the Silhouette Index. The calculation is made as in the Equations \ref{eq:davies} and \ref{eq:dunn} mentioned before.
 	
 	
-	The GE-Clust algorithm was implemented using the open source architecture from jMetal framework~\cite{durillo2011jmetal}. jMetal is easy to extend, has a well organized structure and also an active community. 
+	The GE-Clust algorithm was implemented using the open source architecture from jMetal framework~\cite{durillo2011jmetal}. jMetal is easy to extend, has a well-organized structure and also an active community. 
 	
 	
 	\section{Experimental Evalution} \label{sec:experiments}
@@ -353,7 +354,7 @@
 	\subsection{Experiment Setup}
 	
 	
-	The experiment used four well-known datasets from UCI machine learning database \cite{uci}. Table \ref{uci-experiments} shows the number of instances and attributes, and the data type of the datasets. 
+	The experiment used four well-known datasets from UCI machine learning database \cite{uci}. Table \ref{uci-experiments} shows the number of instances and attributes and the data type of the datasets. 
 	
 	
 	\begin{table}[htb]
@@ -375,11 +376,11 @@
 	%R É preciso explicar melhor, reescrever a frases abaixo.
 	%R explicar que pegou as medias e também como o k foi estabelecido em ambos os casos CE-Clust e K-means.
 	
-	The GE-Clust was executed 10 independent runs for each dataset using the configuration presented in Table~\ref{ge-configuration}. At the end of each execution, the best individual was selected, resulting 10 algorithms. For the comparison, the average values were calculated considering all 10 algorithms.
+	The GE-Clust was executed 10 independent times for each dataset using the configuration presented in Table~\ref{ge-configuration}. At the end of each execution, the best individual was selected, resulting 10 algorithms. For the comparison, the average values were calculated considering all 10 algorithms.
 	
 	%R vcs falam que executam com k values o k-means pq está fixo na tabela?
 	
-	The K-means algorithm was executed with different K values, varying within the range 2 to 7. For each K value, the algorithm was executed 10 times. Only the best K configuration (the one whose obtained the highest fitness values) is considered. In these experiments, que best K configuration is with K = 2 for all tests. The results of the GE-Clust individuals were compared to the K-means algorithm.
+	The K-means algorithm was executed with different K values, varying within the range 2 to 7. For each K value, the algorithm was executed 10 times. Only the best K configuration (the one whose obtained the highest fitness values) is considered. In these experiments, the best K configuration is with K = 2 for all tests. The results of the GE-Clust individuals were compared to the K-means algorithm.
 	
 	%R n�o entendi... vcs nao pegaram o melhor dos k do k-means? pelo menos � o que falaram acima.....
 	
@@ -402,7 +403,7 @@
 	\subsection{Results and Analysis}
 	
 	
-	Tables \ref{tb:silhouette-results}, \ref{tb:davies-results} and \ref{tb:dunn-results} presents the results obtained by both algorithms for the Silhouette, Davies-Bouldin and Dun Indexes respectively. The tables contains average, standard deviation, minimum and maximum values of the fitness value, for the best individual of each run and each algorithm. The best result for each dataset is presented in bold. The number of clusters (K) generated by GE-Clust in the best individual were 2. For each dataset, the cell painted in gray means that the Kruskall-Wallis statistical test \cite{mckight2010kruskal} reported a \textit{true} result, in other words, there is difference in the results between the best GE-Clust individual and the K-means.
+	Tables \ref{tb:silhouette-results}, \ref{tb:davies-results} and \ref{tb:dunn-results} presents the results obtained by both algorithms for the Silhouette, Davies-Bouldin and Dun Indexes respectively. The tables contain average, standard deviation, minimum and maximum values of the fitness value, for the best individual of each run and each algorithm. The best result for each dataset is presented in bold. The number of clusters (K) generated by GE-Clust in the best individual was 2. For each dataset, the cell painted in gray means that the Kruskall-Wallis statistical test \cite{mckight2010kruskal} reported a \textit{true} result, in other words, there is differences between the best GE-Clust individual and the K-means results.
 		
 	%R Colocar tabela em uma unica coluna. Por ex tirar coluna true e usar negrito,  e tirar palavra fixed.
 		
@@ -449,7 +450,7 @@
 	\end{table}
 	
 	
-	Looking at the results obtained using the Silhouette Index in Table~\ref{tb:silhouette-results}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.615 average of the fitness values obtained by the best individuals of 10 executions, while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions. In the case of the Statlog (Heart) database, the GE-Clust obtained a better average value of 0.441 while K-means algorithm reached 0.383. In the Glass database, the results of GE-Clust have lower values than K-means, 0.605 and 0.624, respectively. Finally, for the Glass database the best individuals of GE-Clust obtained 0.651 and the K-means reached 0.681. According to the Kruskal-Wallis statistic test, the results of the first and third datasets have statistical difference.
+	Looking at the results obtained using the Silhouette Index in Table~\ref{tb:silhouette-results}, it is possible to observe that for the Pima Indian Diabetes, our approach reached 0.615 average of the fitness values obtained by the best individuals of 10 executions while the K-means algorithm obtained a lower value equal to 0.570 on 10 executions. In the case of Statlog (Heart) database, the GE-Clust obtained a better average value of 0.441 while K-means algorithm reached 0.383. In the Glass database, the results of GE-Clust have lower values than K-means, 0.605 and 0.624, respectively. Finally, for the Glass database, the best individuals of GE-Clust obtained 0.651 and the K-means reached 0.681. According to the Kruskal-Wallis statistic test, the results of the first and third datasets have statistical difference.
 	
 	
 	\begin{table}[]
@@ -544,12 +545,12 @@
 	For the results using Dunn Index in Table~\ref{tb:dunn-results}, the best results maintain as in the Table~\ref{tb:silhouette-results} for the Silhouette Index. It is important to notice for the Glass Dataset, that the result obtained by the K-means algorithm was 1,00, against 0,923 from the GE-Clust. For the Kruskall-Wallis test, all bases but Statlog got statistical difference in their results.
 	
 	
-	Moreover, it is possible to note that for all 10 executions of the GE-Clust, the generated algorithms classified the dataset into two clusters. In the case of the K-means algorithm the results that presented the highest fitness values were obtained also using $k=2$. For the sake of space the results with $k = (3,4,5,6,7)$ were suppressed.
+	Moreover, it is possible to note that for all 10 executions of the GE-Clust, the generated algorithms classified the dataset into two clusters. In the case of the K-means algorithm, the results that presented the highest fitness values were obtained also using $k=2$. For the sake of space, the results with $k = (3,4,5,6,7)$ were suppressed.
 	
 	
 	%R nao sei se deveriamos deixar estes tempos....
 	
-	%	For the time analysis of the algorithms. Taking as example the Diabetes dataset, the GE-Clust took an average of 261.7h (hours) to execute, that is the evolutionary process. Then, the GE-Clust best individual took an average of 1581.7ms (milliseconds) to execute and the K-means algorithm took an average of 102.6ms to execute.
+	%	For the time analysis of the algorithms. Taking as an example the Diabetes dataset, the GE-Clust took an average of 261.7h (hours) to execute, that is the evolutionary process. Then, the GE-Clust best individual took an average of 1581.7ms (milliseconds) to execute and the K-means algorithm took an average of 102.6ms to execute.
 	
 	
 	Now, checking the proposed hypothesis, we can conclude that clustering algorithms generated by the presented approach are able to reach good and acceptable values for the fitness function in terms of the tested Indexes. The fitness values obtained by the generated algorithms in two of four databases are better than the ones obtained by the K-means algorithm for all Indexes, although in the other databases the difference between the fitness values was very small. Therefore, in the context evaluated here, the generated algorithms proved to be competitive to K-means algorithm. Moreover, it is possible to highlight one advantage of the proposed approach: there is no need to configure the number of clusters, which usually is a non-trivial task, as mentioned by many authors~\cite{tibshirani2001estimating}.
@@ -567,17 +568,17 @@
 	
 	\section{Related Work} \label{sec:related_work}
 	
-	In this section is described about some works that served as motivation and gave support to this work, and other ones that address the automatic generation of clustering algoritms.
+	In this section is described some works that served as motivation and gave support to this work, and other ones that address the automatic generation of clustering algorithms.
 	
 	%S Falta a citacao do lourenco 2015.
 	
 	In~\cite{lourencco2012evolving,lourencco2015IEEE}, the authors proposed a Grammatical Evolution framework for the automatic design of Evolutionary Algorithms (EAs). The grammar defined has the ability to combine components that regularly appear in existing EAs, aiming at achieving novel and fully functional optimization methods. They used the Royal Road Functions to verify the capacity of the framework to evolve algorithms. The obtained results show that the framework is able to evolve simple EAs that can effectively solve the Royal Road instances. In some cases, unusual design solutions provided by the framework show competitive results with standard approaches.
 	
-	The work of Miranda and Prudêncio~\cite{miranda2015gefpso} was one of the papers used as base for this research. The authors describe a framework to generate Particle Optimization Algorithm (PSO) using GE. The paper details how to define the grammar (the production rules and expressions used), the map process using integer vector individuals, and how to use the grammar to generate the PSO algorithm. They performed experiments on the benchmark problems, and demonstrate that the proposed method generates useful designs which achieved competitive algorithms when compared to well succeeded algorithms from the literature.
+	The work of Miranda and Prudêncio~\cite{miranda2015gefpso} was one of the papers used as a base for this research. The authors describe a framework to generate Particle Optimization Algorithm (PSO) using GE. The paper details how to define the grammar (the production rules and expressions used), the mapping process using integer vector individuals, and how to use the grammar to generate the PSO algorithm. They performed experiments on the benchmark problems and demonstrate that the proposed method generates useful designs which achieved competitive algorithms when compared to well-succeeded algorithms from the literature.
 	
-	Burke et al~\cite{burke2012grammatical} observe that GP approaches have been employed to automatically design constructive heuristics for solving problems. These algorithms reach results that are superior to that one obtained by human-created heuristics, but in general, they do not obtain results of same quality as local search heuristics. So in their research, they proposed the use of GE to automatically generate good quality local search algorithms, that maintain their performance on new problem instances.
+	Burke et al~\cite{burke2012grammatical} observe that GP approaches have been employed to automatically design constructive heuristics for solving problems. These algorithms reach results that are superior to that one obtained by human-created heuristics, but in general, they do not obtain results of the same quality as local search heuristics. So in their research, they proposed the use of GE to automatically generate good quality local search algorithms, that maintain their performance on new problem instances.
 	
-	Contreras-Bolton and Parada~\cite{bolton2015optimizing} address efficient design of algorithms for difficult combinatorial optimization problems. There is large amount of heuristic, meta-heuristic and hyper-heuristic methods showing that combining algorithms can produce better results than using each algorithm alone. In the paper, the authors propose the use of Genetic Programming to automate the design of Clustering algorithms. They create some functions that represents common operations made in clustering algorithms to represent the nodes required by GP, so the evolutionary could produce algorithms based on these functions. There are other approaches for the Clustering problem using GP like the paper of~\cite{boric2007genetic}, that uses Information Theoretic Fitness Measure -- a probabilistic interpretation of the space of objects -- for clustering.'
+	Contreras-Bolton and Parada~\cite{bolton2015optimizing} address the efficient design of algorithms for difficult combinatorial optimization problems. There is a large amount of heuristic, meta-heuristic and hyper-heuristic methods showing that combining algorithms can produce better results than using each algorithm alone. In the paper, the authors propose the use of Genetic Programming to automate the design of Clustering algorithms. They create some functions that represent common operations made in clustering algorithms to represent the nodes required by GP, so the evolutionary could produce algorithms based on these functions. There are other approaches for the Clustering problem using GP like the paper of~\cite{boric2007genetic}, that uses Information Theoretic Fitness Measure -- a probabilistic interpretation of the space of objects -- for clustering.'
 	
 	As we can observe, the automatic evolution of clustering algorithms is an important topic, which has been recently explored. Few works are dedicated to this subject. Works in the literature are not based on Grammatical Evolution. They use other functions such as: \texttt{and}, \texttt{or} and mathematical functions. The most similar work is the proposed in~\cite{bolton2015optimizing} but the paper does not have all the details needed to reply the study.  As far as we know this is the first time that Grammatical Evolution is used for clustering algorithm generation. 
 	
@@ -590,9 +591,9 @@
 	
 	The proposed approach encompasses i) a grammar,  projected for clustering algorithms, which uses common operations like moving or grouping objects; ii)  Silhouette, Davies-Bouldin and Dunn indexes, used as fitness functions; and iii) the algorithm GE-Clust that implements the evolution process. 
 	
-	A set of experiments were conducted using UCI databases. The results of the generated algorithms were compared to K-means. In 2 of 4 datasets the proposed approach reached best values, with statistical difference for one dataset, when compared with the K-means algorithm.
+	A set of experiments was conducted using UCI databases. The results of the generated algorithms were compared to K-means. In 2 of 4 datasets the proposed approach reached best values, with statistical difference for one dataset, when compared with the K-means algorithm.
 	
-	Based on the conducted experiments, it is possible to conclude that the proposed approach can generate useful clustering algorithms, able to produce good solutions when evaluated by the proposed indexes. Future works include to extend this study to other databases and the addition of other rules to the grammar with other important component for clustering algorithms.
+	Based on the conducted experiments, it is possible to conclude that the proposed approach can generate useful clustering algorithms, able to produce good solutions when evaluated by the proposed indexes. Future works include extending this study to other databases and the addition of other rules to the grammar with other important components for clustering algorithms.
 	
 	%S falta ref lourenco2015.
 	
